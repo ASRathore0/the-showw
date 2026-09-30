@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { useAuth } from '../context/AuthContext';
+import { useSettings } from '../context/SettingsContext';
+import { getMediaUrl } from '../utils/formatUrl';
 import { Lock, Mail, ArrowRight, ShieldCheck, User } from 'lucide-react';
 
 const Login = () => {
@@ -12,6 +14,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
 
   const { login } = useAuth();
+  const { settings } = useSettings();
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -52,12 +55,17 @@ const Login = () => {
           
           <div className="text-center mb-8">
             <Link to="/" className="inline-block mb-4">
-              <img 
-                src="/assets/images/jp-yadav-show-logo.png" 
-                alt="Logo" 
-                className="h-12 w-auto mx-auto"
-                onError={(e) => { e.target.src = '/assets/images/jp-yadav-show-logo.svg'; }}
-              />
+              {settings?.logo_url ? (
+                <img 
+                  src={getMediaUrl(settings.logo_url)} 
+                  alt="Logo" 
+                  className="h-12 w-auto mx-auto object-contain"
+                />
+              ) : (
+                <span className="text-xl font-bold text-white font-heading uppercase">
+                  {settings?.site_title || "THE JP YADAV SHOW"}
+                </span>
+              )}
             </Link>
             <h1 className="text-2xl font-extrabold font-heading uppercase text-white">ACCOUNT LOGIN</h1>
             <p className="text-xs text-gray-400 mt-1">Sign in to manage tickets, auditions, or administration.</p>

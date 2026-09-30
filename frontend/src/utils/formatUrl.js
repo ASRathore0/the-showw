@@ -2,7 +2,7 @@
  * Helper to resolve media URLs (images, videos) properly whether they are relative, 
  * uploaded (/storage/...), or local assets (/assets/...).
  */
-export const getMediaUrl = (url, fallback = '/assets/images/jp-yadav-show-logo.png') => {
+export const getMediaUrl = (url, fallback = '') => {
   if (!url || typeof url !== 'string' || url.trim() === '') {
     return fallback;
   }

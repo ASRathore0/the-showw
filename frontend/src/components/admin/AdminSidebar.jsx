@@ -15,10 +15,13 @@ import {
   FileSpreadsheet
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import { useSettings } from '../../context/SettingsContext';
+import { getMediaUrl } from '../../utils/formatUrl';
 
 const AdminSidebar = () => {
   const location = useLocation();
   const { logout } = useAuth();
+  const { settings } = useSettings();
 
   const navItems = [
     { label: 'Dashboard Overview', path: '/admin', icon: LayoutDashboard },
@@ -39,12 +42,17 @@ const AdminSidebar = () => {
       <div>
         {/* Admin Header Branding */}
         <div className="p-6 border-b border-[#1E2638] flex items-center gap-3">
-          <img 
-            src="/assets/images/jp-yadav-show-logo.png" 
-            alt="Logo" 
-            className="h-9 w-auto"
-            onError={(e) => { e.target.src = '/assets/images/jp-yadav-show-logo.svg'; }}
-          />
+          {settings?.logo_url ? (
+            <img 
+              src={getMediaUrl(settings.logo_url)} 
+              alt="Logo" 
+              className="h-9 w-auto object-contain"
+            />
+          ) : (
+            <div className="w-8 h-8 rounded bg-[#B51D2A] text-white flex items-center justify-center font-bold text-xs">
+              JP
+            </div>
+          )}
           <div>
             <div className="text-xs font-bold text-white tracking-wider uppercase font-heading">OPERATIONS SAAS</div>
             <div className="text-[10px] text-[#D6A84F] font-semibold">ADMIN PORTAL</div>

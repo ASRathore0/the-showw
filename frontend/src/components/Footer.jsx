@@ -15,15 +15,17 @@ const Footer = () => {
           {/* Brand Info */}
           <div className="space-y-4 md:col-span-1">
             <Link to="/" className="inline-block">
-              <img 
-                src={getMediaUrl(settings.logo_url, "/assets/images/jp-yadav-show-logo.png")} 
-                alt={settings.site_title || "The JP Yadav Show Logo"} 
-                className="h-14 w-auto object-contain"
-                onError={(e) => { 
-                  e.target.onerror = null; 
-                  e.target.src = '/assets/images/jp-yadav-show-logo.png'; 
-                }}
-              />
+              {settings?.logo_url ? (
+                <img 
+                  src={getMediaUrl(settings.logo_url)} 
+                  alt={settings.site_title || "The JP Yadav Show Logo"} 
+                  className="h-14 w-auto object-contain"
+                />
+              ) : (
+                <span className="text-lg font-bold text-white font-heading uppercase">
+                  {settings?.site_title || "THE JP YADAV SHOW"}
+                </span>
+              )}
             </Link>
             <p className="text-gray-400 text-sm leading-relaxed">
               The premier Bhojpuri comedy &amp; entertainment platform. Bringing high-energy live shows, talent auditions, and digital comedy episodes.

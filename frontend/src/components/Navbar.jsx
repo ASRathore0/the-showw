@@ -31,15 +31,17 @@ const Navbar = () => {
         
         {/* Brand Logo */}
         <Link to="/" className="flex items-center gap-3 group">
-          <img 
-            src={getMediaUrl(settings.logo_url, "/assets/images/jp-yadav-show-logo.png")} 
-            alt={settings.site_title || "The JP Yadav Show Logo"} 
-            className="h-10 sm:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
-            onError={(e) => { 
-              e.target.onerror = null; 
-              e.target.src = '/assets/images/jp-yadav-show-logo.png'; 
-            }}
-          />
+          {settings?.logo_url ? (
+            <img 
+              src={getMediaUrl(settings.logo_url)} 
+              alt={settings.site_title || "The JP Yadav Show Logo"} 
+              className="h-10 sm:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+            />
+          ) : (
+            <span className="text-xl font-extrabold text-white tracking-wider font-heading uppercase">
+              {settings?.site_title || "THE JP YADAV SHOW"}
+            </span>
+          )}
         </Link>
 
         {/* Desktop Navigation Links */}
