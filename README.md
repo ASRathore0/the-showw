@@ -1,4 +1,4 @@
-# THE JP YADAV SHOW — Production Entertainment & Live Event Platform
+# THE SHOW — Production Entertainment & Live Event Platform
 
 A complete, production-quality web application built for **The JP Yadav Show**, the premier Bhojpuri comedy and entertainment platform. 
 
