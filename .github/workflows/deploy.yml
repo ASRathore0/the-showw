@@ -1,0 +1,55 @@
+name: Deploy to Hostinger
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🚚 Checkout source code
+        uses: actions/checkout@v4
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: 📦 Install Frontend Dependencies & Build
+        run: |
+          cd frontend
+          npm ci
+          npm run build
+
+      - name: 🐘 Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          coverage: none
+
+      - name: 📦 Install Backend Dependencies
+        run: |
+          cd backend
+          composer install --no-dev --optimize-autoloader
+
+      # Optional SSH Deployment Step to Hostinger server:
+      # Requires Secrets added to GitHub Repository Settings:
+      # HOSTINGER_HOST, HOSTINGER_USERNAME, HOSTINGER_SSH_KEY, HOSTINGER_PORT (usually 65002 for Hostinger)
+      #
+      # - name: 🚀 Deploy to Hostinger via SSH
+      #   uses: appleboy/ssh-action@master
+      #   with:
+      #     host: ${{ secrets.HOSTINGER_HOST }}
+      #     username: ${{ secrets.HOSTINGER_USERNAME }}
+      #     key: ${{ secrets.HOSTINGER_SSH_KEY }}
+      #     port: ${{ secrets.HOSTINGER_PORT || 65002 }}
+      #     script: |
+      #       cd /home/YOUR_USERNAME/public_html
+      #       git pull origin main
+      #       cd backend && composer install --no-dev --optimize-autoloader
+      #       php artisan migrate --force
+      #       php artisan config:cache
+      #       php artisan route:cache
+      #       php artisan view:cache
