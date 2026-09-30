@@ -320,6 +320,35 @@ class AdminController extends Controller
         ], 201);
     }
 
+    public function updatePerformer(Request $request, $id)
+    {
+        $performer = Performer::findOrFail($id);
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'category' => 'required|string|max:100',
+            'bio' => 'nullable|string',
+            'city' => 'nullable|string|max:100',
+            'experience' => 'nullable|string|max:100',
+            'photo_path' => 'nullable|string',
+            'is_featured' => 'boolean'
+        ]);
+
+        $performer->update($validated);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Performer updated successfully',
+            'performer' => $performer
+        ]);
+    }
+
+    public function deletePerformer($id)
+    {
+        $performer = Performer::findOrFail($id);
+        $performer->delete();
+        return response()->json(['success' => true, 'message' => 'Performer deleted successfully']);
+    }
+
     // Reports
     public function reports()
     {
@@ -405,6 +434,19 @@ class AdminController extends Controller
 
         $image = GalleryImage::create($validated);
         return response()->json(['success' => true, 'message' => 'Image added to gallery successfully', 'image' => $image], 201);
+    }
+
+    public function updateGalleryImage(Request $request, $id)
+    {
+        $image = GalleryImage::findOrFail($id);
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'category' => 'required|string|max:100',
+            'image_path' => 'required|string|max:255'
+        ]);
+
+        $image->update($validated);
+        return response()->json(['success' => true, 'message' => 'Gallery image updated successfully', 'image' => $image]);
     }
 
     public function deleteGalleryImage($id)

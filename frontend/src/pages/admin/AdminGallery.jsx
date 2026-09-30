@@ -2,19 +2,22 @@ import React, { useEffect, useState } from 'react';
 import AdminSidebar from '../../components/admin/AdminSidebar';
 import AdminHeader from '../../components/admin/AdminHeader';
 import apiClient from '../../api/axios';
-import { Image as ImageIcon, Plus, Trash2 } from 'lucide-react';
+import { Image as ImageIcon, Plus, Trash2, Edit3 } from 'lucide-react';
 
 const AdminGallery = () => {
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [editingImage, setEditingImage] = useState(null);
 
-  const [formData, setFormData] = useState({
-    title: 'Stage Highlight',
+  const initialFormState = {
+    title: '',
     category: 'Shows',
     image_path: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=800'
-  });
+  };
+
+  const [formData, setFormData] = useState(initialFormState);
 
   const categories = ['Shows', 'Auditions', 'Behind The Scenes', 'Audience'];
 
@@ -34,17 +37,42 @@ const AdminGallery = () => {
     fetchGallery();
   }, []);
 
-  const handleCreateImage = async (e) => {
+  const openCreateModal = () => {
+    setEditingImage(null);
+    setFormData(initialFormState);
+    setModalOpen(true);
+  };
+
+  const openEditModal = (img) => {
+    setEditingImage(img);
+    setFormData({
+      title: img.title || '',
+      category: img.category || 'Shows',
+      image_path: img.image_path || ''
+    });
+    setModalOpen(true);
+  };
+
+  const handleSubmitImage = async (e) => {
     e.preventDefault();
     try {
-      const res = await apiClient.post('/admin/gallery', formData);
-      if (res.data.success) {
-        alert('Photo added to gallery successfully!');
-        setModalOpen(false);
-        fetchGallery();
+      if (editingImage) {
+        const res = await apiClient.put(`/admin/gallery/${editingImage.id}`, formData);
+        if (res.data.success) {
+          alert('Photo updated successfully!');
+          setModalOpen(false);
+          fetchGallery();
+        }
+      } else {
+        const res = await apiClient.post('/admin/gallery', formData);
+        if (res.data.success) {
+          alert('Photo added to gallery successfully!');
+          setModalOpen(false);
+          fetchGallery();
+        }
       }
     } catch (err) {
-      alert('Failed to upload gallery image');
+      alert(editingImage ? 'Failed to update gallery image' : 'Failed to upload gallery image');
     }
   };
 
@@ -63,19 +91,19 @@ const AdminGallery = () => {
       <AdminSidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
       <div className="flex-1 flex flex-col min-w-0 overflow-y-auto">
-        <AdminHeader title="Photo Gallery &amp; Album CMS" onMenuToggle={() => setSidebarOpen(!sidebarOpen)} />
+        <AdminHeader title="Photo Gallery CMS" onMenuToggle={() => setSidebarOpen(!sidebarOpen)} />
 
         <main className="p-4 sm:p-8 space-y-6 max-w-7xl">
           
-          <div className="flex justify-between items-center">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
               <h2 className="text-xl font-bold text-white font-heading uppercase">GALLERY MANAGEMENT</h2>
               <p className="text-xs text-gray-400">Upload and manage photo albums for live shows, auditions, and green room moments.</p>
             </div>
 
             <button 
-              onClick={() => setModalOpen(true)} 
-              className="btn-primary py-2.5 px-4 text-xs flex items-center gap-1.5"
+              onClick={openCreateModal} 
+              className="btn-primary py-2.5 px-4 text-xs flex items-center gap-1.5 w-full sm:w-auto justify-center"
             >
               <Plus className="w-4 h-4" /> UPLOAD NEW PHOTO
             </button>
@@ -88,19 +116,29 @@ const AdminGallery = () => {
               <div className="col-span-4 text-center py-12 text-gray-500">No photos found. Click "Upload New Photo" to add images.</div>
             ) : (
               images.map(img => (
-                <div key={img.id} className="admin-card p-3 rounded-xl border border-[#1E2638] bg-[#0F131C] space-y-3">
-                  <div className="relative aspect-[4/3] rounded-lg overflow-hidden bg-black border border-white/5">
-                    <img src={img.image_path} alt={img.title} className="w-full h-full object-cover" />
-                    <span className="absolute top-2 left-2 px-2 py-0.5 rounded bg-black/80 text-[10px] font-bold text-[#D6A84F]">
-                      {img.category}
-                    </span>
+                <div key={img.id} className="admin-card p-3 rounded-xl border border-[#1E2638] bg-[#0F131C] space-y-3 flex flex-col justify-between">
+                  <div className="space-y-2">
+                    <div className="relative aspect-[4/3] rounded-lg overflow-hidden bg-black border border-white/5">
+                      <img src={img.image_path} alt={img.title} className="w-full h-full object-cover" />
+                      <span className="absolute top-2 left-2 px-2 py-0.5 rounded bg-black/80 text-[10px] font-bold text-[#D6A84F]">
+                        {img.category}
+                      </span>
+                    </div>
+
+                    <div className="text-xs font-bold text-white truncate">{img.title}</div>
                   </div>
 
-                  <div className="flex items-center justify-between">
-                    <div className="text-xs font-bold text-white truncate">{img.title}</div>
+                  <div className="flex items-center justify-end gap-1.5 pt-2 border-t border-[#1E2638]">
+                    <button 
+                      onClick={() => openEditModal(img)} 
+                      className="p-1.5 rounded bg-[#161C2A] text-gray-300 hover:text-white hover:bg-[#263148] border border-[#263148] transition-colors"
+                      title="Edit Image"
+                    >
+                      <Edit3 className="w-3.5 h-3.5 text-[#D6A84F]" />
+                    </button>
                     <button 
                       onClick={() => handleDeleteImage(img.id)} 
-                      className="p-1.5 rounded bg-red-950 text-red-300 hover:bg-red-900 transition-colors"
+                      className="p-1.5 rounded bg-red-950/80 text-red-400 hover:bg-red-900 border border-red-900/50 transition-colors"
                       title="Delete Image"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
@@ -114,16 +152,18 @@ const AdminGallery = () => {
         </main>
       </div>
 
-      {/* Add Photo Modal */}
+      {/* Add / Edit Photo Modal */}
       {modalOpen && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
           <div className="bg-[#0F131C] border border-[#1E2638] rounded-2xl max-w-lg w-full p-6 space-y-4 text-xs">
             <div className="flex justify-between items-center border-b border-[#1E2638] pb-3">
-              <h3 className="text-lg font-bold font-heading text-white uppercase">ADD PHOTO TO GALLERY</h3>
-              <button onClick={() => setModalOpen(false)} className="text-gray-400 hover:text-white">✕</button>
+              <h3 className="text-base sm:text-lg font-bold font-heading text-white uppercase">
+                {editingImage ? 'EDIT GALLERY PHOTO' : 'ADD PHOTO TO GALLERY'}
+              </h3>
+              <button onClick={() => setModalOpen(false)} className="text-gray-400 hover:text-white text-base font-bold">✕</button>
             </div>
 
-            <form onSubmit={handleCreateImage} className="space-y-4">
+            <form onSubmit={handleSubmitImage} className="space-y-4">
               <div>
                 <label className="block text-gray-300 font-bold mb-1">Image Title *</label>
                 <input 
@@ -161,7 +201,9 @@ const AdminGallery = () => {
 
               <div className="flex justify-end gap-3 pt-2">
                 <button type="button" onClick={() => setModalOpen(false)} className="btn-outline py-2 px-4 text-xs">Cancel</button>
-                <button type="submit" className="btn-primary py-2 px-5 text-xs">Upload Photo</button>
+                <button type="submit" className="btn-primary py-2 px-5 text-xs font-bold">
+                  {editingImage ? 'SAVE CHANGES' : 'UPLOAD PHOTO'}
+                </button>
               </div>
             </form>
           </div>

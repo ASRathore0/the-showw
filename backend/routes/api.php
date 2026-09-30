@@ -106,6 +106,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/customers', [AdminController::class, 'customers']);
     Route::get('/performers', [AdminController::class, 'performers']);
     Route::post('/performers', [AdminController::class, 'storePerformer']);
+    Route::put('/performers/{id}', [AdminController::class, 'updatePerformer']);
+    Route::delete('/performers/{id}', [AdminController::class, 'deletePerformer']);
     Route::get('/reports', [AdminController::class, 'reports']);
 
     // Episodes CMS
@@ -117,6 +119,7 @@ Route::prefix('admin')->group(function () {
     // Gallery CMS
     Route::get('/gallery', [AdminController::class, 'gallery']);
     Route::post('/gallery', [AdminController::class, 'storeGalleryImage']);
+    Route::put('/gallery/{id}', [AdminController::class, 'updateGalleryImage']);
     Route::delete('/gallery/{id}', [AdminController::class, 'deleteGalleryImage']);
 
     // Settings & File Uploads
