@@ -163,7 +163,7 @@ const AdminEpisodes = () => {
                   type="text" 
                   value={formData.title} 
                   onChange={e => setFormData({ ...formData, title: e.target.value })}
-                  placeholder="e.g. The JP Yadav Show - Episode 19 ft. Special Guest"
+                  placeholder="e.g. Episode 19 ft. Special Guest"
                   className="w-full bg-[#161C2A] border border-[#263148] rounded-lg p-2.5 text-xs text-white focus:outline-none"
                   required
                 />

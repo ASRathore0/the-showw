@@ -34,12 +34,12 @@ const Navbar = () => {
           {settings?.logo_url ? (
             <img 
               src={getMediaUrl(settings.logo_url)} 
-              alt={settings.site_title || "The JP Yadav Show Logo"} 
+              alt={settings.site_title || "Show Logo"} 
               className="h-10 sm:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
             />
           ) : (
             <span className="text-xl font-extrabold text-white tracking-wider font-heading uppercase">
-              {settings?.site_title || "THE JP YADAV SHOW"}
+              {settings?.site_title || "SHOW PLATFORM"}
             </span>
           )}
         </Link>

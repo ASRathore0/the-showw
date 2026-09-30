@@ -45,11 +45,11 @@ const AdminHeader = ({ title = 'Operational Dashboard', onMenuToggle }) => {
         {/* Admin Badge */}
         <div className="flex items-center gap-3 pl-4 border-l border-[#1E2638]">
           <div className="w-8 h-8 rounded-full bg-[#B51D2A] text-white flex items-center justify-center font-bold text-xs">
-            JP
+            DP
           </div>
           <div className="hidden sm:block text-xs">
             <div className="font-bold text-white leading-tight">{user?.name || 'Administrator'}</div>
-            <div className="text-[10px] text-[#D6A84F]">SUPER ADMIN</div>
+            <div className="text-[10px] text-[#D6A84F]">ADMIN</div>
           </div>
         </div>
 

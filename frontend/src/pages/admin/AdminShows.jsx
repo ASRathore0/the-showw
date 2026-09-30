@@ -155,7 +155,7 @@ const AdminShows = () => {
                   type="text" 
                   value={formData.title} 
                   onChange={e => setFormData({ ...formData, title: e.target.value })}
-                  placeholder="e.g. The JP Yadav Show Live - Gorakhpur Gala"
+                  placeholder="e.g. Grand Live Gala - Gorakhpur Edition"
                   className="w-full bg-[#161C2A] border border-[#263148] rounded-lg p-2.5 text-xs text-white focus:outline-none"
                   required
                 />

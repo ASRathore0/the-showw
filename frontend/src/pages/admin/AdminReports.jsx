@@ -31,7 +31,7 @@ const AdminReports = () => {
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
-    link.setAttribute("download", `jp_yadav_show_report_${dateFilter.replace(' ', '_')}.csv`);
+    link.setAttribute("download", `show_analytics_report_${dateFilter.replace(' ', '_')}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

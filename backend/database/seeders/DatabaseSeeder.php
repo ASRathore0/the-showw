@@ -548,7 +548,7 @@ class DatabaseSeeder extends Seeder
         NotificationTemplate::create([
             'name' => 'Audition Submitted',
             'code' => 'AUDITION_SUBMITTED',
-            'subject' => 'Application Received - The JP Yadav Show Auditions',
+            'subject' => 'Application Received - Audition Confirmation',
             'body_template' => 'Dear {{name}}, your application {{application_no}} for {{category}} has been submitted successfully.',
             'channel' => 'email'
         ]);
@@ -556,23 +556,23 @@ class DatabaseSeeder extends Seeder
         NotificationTemplate::create([
             'name' => 'Ticket Booking Confirmed',
             'code' => 'TICKET_CONFIRMED',
-            'subject' => 'Your Tickets Are Confirmed! - The JP Yadav Show',
+            'subject' => 'Your Tickets Are Confirmed!',
             'body_template' => 'Hi {{name}}, your booking {{booking_no}} for {{show_title}} on {{date}} at {{venue}} is confirmed.',
             'channel' => 'email'
         ]);
 
         // 10. Settings
         $settingsData = [
-            ['key' => 'site_title', 'value' => 'THE JP YADAV SHOW', 'group' => 'general'],
-            ['key' => 'logo_url', 'value' => '/assets/images/jp-yadav-show-logo.png', 'group' => 'branding'],
+            ['key' => 'site_title', 'value' => 'THE ENTERTAINMENT SHOW', 'group' => 'general'],
+            ['key' => 'logo_url', 'value' => '', 'group' => 'branding'],
             ['key' => 'support_phone', 'value' => '+91 9876543210', 'group' => 'contact'],
-            ['key' => 'support_email', 'value' => 'contact@jpyadavshow.com', 'group' => 'contact'],
+            ['key' => 'support_email', 'value' => 'contact@example.com', 'group' => 'contact'],
 
             // Hero Section Settings
-            ['key' => 'hero_title', 'value' => 'THE JP YADAV SHOW', 'group' => 'hero'],
+            ['key' => 'hero_title', 'value' => 'THE ENTERTAINMENT SHOW', 'group' => 'hero'],
             ['key' => 'hero_tagline', 'value' => 'जहाँ हँसी भी है, हुनर भी है।', 'group' => 'hero'],
             ['key' => 'hero_subtitle', 'value' => 'Comedy. Talent. Stories. Live Entertainment.', 'group' => 'hero'],
-            ['key' => 'hero_video_url', 'value' => '/assets/videos/jp-yadav-show-hero.mp4', 'group' => 'hero'],
+            ['key' => 'hero_video_url', 'value' => '', 'group' => 'hero'],
             ['key' => 'hero_next_city', 'value' => 'Patna', 'group' => 'hero'],
             ['key' => 'hero_next_date', 'value' => '12 October 2026', 'group' => 'hero'],
             ['key' => 'hero_next_time', 'value' => '7:00 PM', 'group' => 'hero'],
@@ -580,9 +580,9 @@ class DatabaseSeeder extends Seeder
             // About Section Settings
             ['key' => 'about_tagline', 'value' => 'MORE THAN A SHOW', 'group' => 'about'],
             ['key' => 'about_heading', 'value' => 'WHERE COMEDY MEETS REAL TALENT', 'group' => 'about'],
-            ['key' => 'about_quote', 'value' => '"The JP Yadav Show brings together comedy, conversations, music, talent and unforgettable live experiences."', 'group' => 'about'],
-            ['key' => 'about_p1', 'value' => 'Designed as a premier OTT and live entertainment platform, we celebrate the vibrant spirit of Bhojpuri culture through top-tier standup, mimicry, storytelling, and musical performances.', 'group' => 'about'],
-            ['key' => 'about_p2', 'value' => 'Whether performing before packed auditoriums in Patna, Varanasi, Lucknow, and Delhi or reaching millions across OTT and video streaming, our mission is simple: inspire laughter, foster genuine talent, and elevate Bhojpuri performance art.', 'group' => 'about'],
+            ['key' => 'about_quote', 'value' => '"Bringing together comedy, conversations, music, talent and unforgettable live experiences."', 'group' => 'about'],
+            ['key' => 'about_p1', 'value' => 'Designed as a premier OTT and live entertainment platform, we celebrate vibrant cultural talent through top-tier standup, mimicry, storytelling, and musical performances.', 'group' => 'about'],
+            ['key' => 'about_p2', 'value' => 'Whether performing before packed auditoriums or reaching millions across OTT and video streaming, our mission is simple: inspire laughter, foster genuine talent, and elevate performance art.', 'group' => 'about'],
             ['key' => 'about_image_url', 'value' => 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=1000', 'group' => 'about'],
 
             // Experience Pillars Settings

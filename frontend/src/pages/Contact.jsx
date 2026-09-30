@@ -81,7 +81,7 @@ const Contact = () => {
                 <Mail className="w-5 h-5 text-[#B51D2A] flex-shrink-0 mt-1" />
                 <div>
                   <div className="font-bold text-white">Official Email</div>
-                  <div className="text-xs text-gray-400 mt-1">contact@jpyadavshow.com / press@jpyadavshow.com</div>
+                  <div className="text-xs text-gray-400 mt-1">{settings.support_email || "contact@example.com"}</div>
                 </div>
               </div>
             </div>

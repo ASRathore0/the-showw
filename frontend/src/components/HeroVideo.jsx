@@ -12,9 +12,7 @@ const HeroVideo = () => {
   const videoRef = useRef(null);
 
   const rawVideoUrl = settings?.hero_video_url;
-  const videoSrc = (rawVideoUrl && rawVideoUrl !== '/assets/videos/jp-yadav-show-hero.mp4') 
-    ? getMediaUrl(rawVideoUrl) 
-    : FALLBACK_HERO_VIDEO;
+  const videoSrc = rawVideoUrl ? getMediaUrl(rawVideoUrl) : FALLBACK_HERO_VIDEO;
 
   useEffect(() => {
     if (videoRef.current) {
@@ -66,7 +64,7 @@ const HeroVideo = () => {
 
         {/* Editorial Heading */}
         <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold text-white tracking-tight leading-tight uppercase font-heading mb-3 drop-shadow-2xl">
-          {settings.hero_title || "THE JP YADAV SHOW"}
+          {settings.hero_title || settings.site_title || "THE SHOW"}
         </h1>
 
         {/* Hindi Tagline */}

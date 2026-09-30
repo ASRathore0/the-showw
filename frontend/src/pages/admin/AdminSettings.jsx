@@ -271,7 +271,7 @@ const AdminSettings = () => {
                       value={formData.site_title || ''} 
                       onChange={e => handleChange('site_title', e.target.value)}
                       className="w-full bg-[#161C2A] border border-[#263148] rounded-lg p-3 text-sm text-white focus:outline-none focus:border-[#D6A84F]"
-                      placeholder="THE JP YADAV SHOW"
+                      placeholder="THE SHOW"
                       required
                     />
                   </div>
@@ -279,7 +279,7 @@ const AdminSettings = () => {
                   <MediaField 
                     label="Platform Logo Image (Upload or Path URL)" 
                     fieldKey="logo_url" 
-                    placeholder="/assets/images/jp-yadav-show-logo.png"
+                    placeholder="/assets/images/logo.png"
                     accept="image/*"
                   />
 
@@ -333,7 +333,7 @@ const AdminSettings = () => {
                       value={formData.youtube_url || ''} 
                       onChange={e => handleChange('youtube_url', e.target.value)}
                       className="w-full bg-[#161C2A] border border-[#263148] rounded-lg p-3 text-sm text-white focus:outline-none focus:border-[#D6A84F]"
-                      placeholder="https://youtube.com/@TheJPYadavShow"
+                      placeholder="https://youtube.com/@channel"
                     />
                   </div>
 
@@ -344,7 +344,7 @@ const AdminSettings = () => {
                       value={formData.instagram_url || ''} 
                       onChange={e => handleChange('instagram_url', e.target.value)}
                       className="w-full bg-[#161C2A] border border-[#263148] rounded-lg p-3 text-sm text-white focus:outline-none focus:border-[#D6A84F]"
-                      placeholder="https://instagram.com/jpyadavshow"
+                      placeholder="https://instagram.com/handle"
                     />
                   </div>
 
@@ -355,7 +355,7 @@ const AdminSettings = () => {
                       value={formData.facebook_url || ''} 
                       onChange={e => handleChange('facebook_url', e.target.value)}
                       className="w-full bg-[#161C2A] border border-[#263148] rounded-lg p-3 text-sm text-white focus:outline-none focus:border-[#D6A84F]"
-                      placeholder="https://facebook.com/jpyadavshow"
+                      placeholder="https://facebook.com/handle"
                     />
                   </div>
 
@@ -366,7 +366,7 @@ const AdminSettings = () => {
                       value={formData.twitter_url || ''} 
                       onChange={e => handleChange('twitter_url', e.target.value)}
                       className="w-full bg-[#161C2A] border border-[#263148] rounded-lg p-3 text-sm text-white focus:outline-none focus:border-[#D6A84F]"
-                      placeholder="https://x.com/jpyadavshow"
+                      placeholder="https://x.com/handle"
                     />
                   </div>
 
@@ -426,7 +426,7 @@ const AdminSettings = () => {
                 <MediaField 
                   label="Hero Background Video File / URL" 
                   fieldKey="hero_video_url" 
-                  placeholder="/assets/videos/jp-yadav-show-hero.mp4"
+                  placeholder="https://example.com/hero-video.mp4"
                   accept="video/mp4,video/webm,video/ogg,video/quicktime"
                   isVideo={true}
                 />

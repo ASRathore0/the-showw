@@ -58,10 +58,10 @@ const Home = () => {
               {settings.about_heading || "WHERE COMEDY MEETS REAL TALENT"}
             </h2>
             <p className="text-gray-300 text-base sm:text-lg leading-relaxed font-light">
-              {settings.about_quote || '"The JP Yadav Show brings together comedy, conversations, music, talent and unforgettable live experiences."'}
+              {settings.about_quote || '"Bringing together comedy, conversations, music, talent and unforgettable live experiences."'}
             </p>
             <p className="text-gray-400 text-sm leading-relaxed">
-              {settings.about_p1 || "Designed as a premier OTT and live entertainment platform, we celebrate the vibrant spirit of Bhojpuri culture through top-tier standup, mimicry, storytelling, and musical performances."}
+              {settings.about_p1 || "Designed as a premier OTT and live entertainment platform, we celebrate vibrant cultural talent through top-tier standup, mimicry, storytelling, and musical performances."}
             </p>
             
             <div className="pt-4 flex items-center gap-6">
@@ -78,7 +78,7 @@ const Home = () => {
             <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl group">
               <img 
                 src={getMediaUrl(settings.about_image_url, "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=1000")} 
-                alt="The JP Yadav Show Stage" 
+                alt={`${settings.site_title || "Show"} Stage`} 
                 className="w-full h-[420px] object-cover transition-transform duration-700 group-hover:scale-105 filter brightness-90"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />

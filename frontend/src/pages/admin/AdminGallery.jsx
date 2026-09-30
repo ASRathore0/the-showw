@@ -11,7 +11,7 @@ const AdminGallery = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const [formData, setFormData] = useState({
-    title: 'JP Yadav Stage Moment',
+    title: 'Stage Highlight',
     category: 'Shows',
     image_path: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=800'
   });

@@ -67,7 +67,7 @@ const AdminSidebar = ({ isOpen, onClose }) => {
                 </div>
               )}
               <div>
-                <div className="text-xs font-bold text-white tracking-wider uppercase font-heading">OPERATIONS SAAS</div>
+                <div className="text-xs font-bold text-white tracking-wider uppercase font-heading">SAAS</div>
                 <div className="text-[10px] text-[#D6A84F] font-semibold">ADMIN PORTAL</div>
               </div>
             </div>

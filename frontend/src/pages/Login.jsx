@@ -63,7 +63,7 @@ const Login = () => {
                 />
               ) : (
                 <span className="text-xl font-bold text-white font-heading uppercase">
-                  {settings?.site_title || "THE JP YADAV SHOW"}
+                  {settings?.site_title || "THE SHOW"}
                 </span>
               )}
             </Link>

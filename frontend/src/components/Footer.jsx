@@ -18,17 +18,17 @@ const Footer = () => {
               {settings?.logo_url ? (
                 <img 
                   src={getMediaUrl(settings.logo_url)} 
-                  alt={settings.site_title || "The JP Yadav Show Logo"} 
+                  alt={settings.site_title || "Show Logo"} 
                   className="h-14 w-auto object-contain"
                 />
               ) : (
                 <span className="text-lg font-bold text-white font-heading uppercase">
-                  {settings?.site_title || "THE JP YADAV SHOW"}
+                  {settings?.site_title || "THE SHOW"}
                 </span>
               )}
             </Link>
             <p className="text-gray-400 text-sm leading-relaxed">
-              The premier Bhojpuri comedy &amp; entertainment platform. Bringing high-energy live shows, talent auditions, and digital comedy episodes.
+              The premier comedy &amp; entertainment platform. Bringing high-energy live shows, talent auditions, and digital comedy episodes.
             </p>
             <div className="text-xs text-[#D6A84F] tracking-wide uppercase font-semibold">
               "{settings.hero_tagline || "जहाँ हँसी भी है, हुनर भी है।"}"
@@ -72,7 +72,7 @@ const Footer = () => {
             </div>
             <div className="flex items-center gap-3">
               <Mail className="w-4 h-4 text-[#B51D2A] flex-shrink-0" />
-              <span>{settings.support_email || "contact@jpyadavshow.com"}</span>
+              <span>{settings.support_email || "contact@example.com"}</span>
             </div>
 
             <div className="pt-4 flex items-center gap-3 flex-wrap">
@@ -107,7 +107,7 @@ const Footer = () => {
         </div>
 
         <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-gray-500">
-          <p>© 2026 THE JP YADAV SHOW. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} {settings.site_title || "SHOW PLATFORM"}. All rights reserved.</p>
           <div className="flex items-center gap-6">
             <span className="hover:text-gray-400 cursor-pointer">Privacy Policy</span>
             <span className="hover:text-gray-400 cursor-pointer">Terms of Service</span>

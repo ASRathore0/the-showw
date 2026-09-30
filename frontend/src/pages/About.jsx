@@ -21,7 +21,7 @@ const About = () => {
           MORE THAN A SHOW.
         </h1>
         <p className="text-gray-300 text-lg sm:text-xl font-light max-w-3xl mx-auto leading-relaxed">
-          {settings.about_quote || '"The JP Yadav Show brings together comedy, conversations, music, talent and unforgettable live experiences."'}
+          {settings.about_quote || '"Bringing together comedy, conversations, music, talent and unforgettable live experiences."'}
         </p>
       </div>
 
@@ -34,10 +34,10 @@ const About = () => {
               {settings.about_heading || "CRAFTING A NEW BENCHMARK IN LIVE & DIGITAL ENTERTAINMENT"}
             </h2>
             <p className="text-gray-300 text-sm sm:text-base leading-relaxed">
-              {settings.about_p1 || "Founded by JP Yadav, the platform emerged as a premier cultural powerhouse. Moving away from low-budget generic tropes, The JP Yadav Show represents sophisticated production values, state-of-the-art stage lighting, crisp acoustics, and relatable observational humor."}
+              {settings.about_p1 || "The platform emerged as a premier cultural powerhouse. Moving away from low-budget generic tropes, our show represents sophisticated production values, state-of-the-art stage lighting, crisp acoustics, and relatable observational humor."}
             </p>
             <p className="text-gray-400 text-sm leading-relaxed">
-              {settings.about_p2 || "Whether performing before packed auditoriums in Patna, Varanasi, Lucknow, and Delhi or reaching millions across OTT and video streaming, our mission is simple: inspire laughter, foster genuine talent, and elevate Bhojpuri performance art."}
+              {settings.about_p2 || "Whether performing before packed auditoriums or reaching millions across OTT and video streaming, our mission is simple: inspire laughter, foster genuine talent, and elevate performance art."}
             </p>
 
             <div className="grid grid-cols-2 gap-4 pt-4">

@@ -3,11 +3,11 @@ import apiClient from '../api/axios';
 import { getMediaUrl } from '../utils/formatUrl';
 
 const defaultSettings = {
-  site_title: 'THE JP YADAV SHOW',
+  site_title: 'THE ENTERTAINMENT SHOW',
   logo_url: '',
   favicon_url: '/favicon.svg',
   support_phone: '+91 9876543210',
-  support_email: 'contact@jpyadavshow.com',
+  support_email: 'contact@example.com',
 
   // Social Media Links
   youtube_url: 'https://youtube.com',
@@ -17,10 +17,10 @@ const defaultSettings = {
   whatsapp_url: 'https://wa.me/919876543210',
 
   // Hero Section
-  hero_title: 'THE JP YADAV SHOW',
-  hero_tagline: 'जहाँ हँसी भी है, हुनर भी है।',
+  hero_title: 'THE ENTERTAINMENT SHOW',
+  hero_tagline: 'Where Comedy & Talent Live Together',
   hero_subtitle: 'Comedy. Talent. Stories. Live Entertainment.',
-  hero_video_url: '/assets/videos/jp-yadav-show-hero.mp4',
+  hero_video_url: '',
   hero_next_city: 'Patna',
   hero_next_date: '12 October 2026',
   hero_next_time: '7:00 PM',
@@ -28,9 +28,9 @@ const defaultSettings = {
   // About Section
   about_tagline: 'MORE THAN A SHOW',
   about_heading: 'WHERE COMEDY MEETS REAL TALENT',
-  about_quote: '"The JP Yadav Show brings together comedy, conversations, music, talent and unforgettable live experiences."',
-  about_p1: 'Designed as a premier OTT and live entertainment platform, we celebrate the vibrant spirit of Bhojpuri culture through top-tier standup, mimicry, storytelling, and musical performances.',
-  about_p2: 'Whether performing before packed auditoriums in Patna, Varanasi, Lucknow, and Delhi or reaching millions across OTT and video streaming, our mission is simple: inspire laughter, foster genuine talent, and elevate Bhojpuri performance art.',
+  about_quote: '"Bringing together comedy, conversations, music, talent and unforgettable live experiences."',
+  about_p1: 'Designed as a premier OTT and live entertainment platform, we celebrate vibrant cultural talent through top-tier standup, mimicry, storytelling, and musical performances.',
+  about_p2: 'Whether performing before packed auditoriums or reaching millions across OTT and video streaming, our mission is simple: inspire laughter, foster genuine talent, and elevate performance art.',
   about_image_url: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=1000',
 
   // Pillars / Experience Section

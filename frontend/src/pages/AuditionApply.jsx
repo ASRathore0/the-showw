@@ -3,11 +3,13 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import apiClient from '../api/axios';
+import { useSettings } from '../context/SettingsContext';
 import { CheckCircle2, ArrowRight, ArrowLeft, Upload, Sparkles, AlertCircle } from 'lucide-react';
 
 const AuditionApply = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { settings } = useSettings();
 
   const [step, setStep] = useState(1);
   const [audition, setAudition] = useState(null);
@@ -459,7 +461,7 @@ const AuditionApply = () => {
                       required
                     />
                     <span className="text-xs text-gray-300 leading-relaxed">
-                      I declare that all submitted performance details and personal information are accurate. I grant The JP Yadav Show production rights to review my performance video for audition evaluation and broadcasting considerations.
+                      I declare that all submitted performance details and personal information are accurate. I grant {settings?.site_title || "the show"} production rights to review my performance video for audition evaluation and broadcasting considerations.
                     </span>
                   </label>
                 </div>
