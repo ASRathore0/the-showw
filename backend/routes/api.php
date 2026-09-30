@@ -17,6 +17,25 @@ use App\Http\Controllers\Api\SettingController;
 | Public Routes
 |--------------------------------------------------------------------------
 */
+Route::get('/health', function() {
+    try {
+        \Illuminate\Support\Facades\DB::connection()->getPdo();
+        $userCount = \App\Models\User::count();
+        return response()->json([
+            'status' => 'ok',
+            'db_connected' => true,
+            'database_name' => \Illuminate\Support\Facades\DB::connection()->getDatabaseName(),
+            'users_count' => $userCount
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'status' => 'error',
+            'db_connected' => false,
+            'message' => $e->getMessage()
+        ], 500);
+    }
+});
+
 Route::get('/shows', [ShowController::class, 'index']);
 Route::get('/shows/{id}', [ShowController::class, 'show']);
 Route::get('/shows/{id}/seats', [ShowController::class, 'seats']);
