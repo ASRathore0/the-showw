@@ -47,7 +47,7 @@ const Home = () => {
       <HeroVideo />
 
       {/* About / The Show Section */}
-      <section className="py-12 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-b border-white/5">
+      <section className="py-10 sm:py-14 lg:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-b border-white/5">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
           <div className="lg:col-span-6 space-y-4 sm:space-y-6">
@@ -93,7 +93,7 @@ const Home = () => {
       </section>
 
       {/* Experience The Show Section (4 Large Visual Areas) */}
-      <section className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-b border-white/5">
+      <section className="py-10 sm:py-14 lg:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-b border-white/5">
         <SectionHeading 
           tagline="THE EXPERIENCE"
           title="FOUR PILLARS OF ENTERTAINMENT"
@@ -162,7 +162,7 @@ const Home = () => {
       </section>
 
       {/* Auditions Section */}
-      <section className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-b border-white/5 bg-gradient-to-b from-transparent via-white/[0.01] to-transparent">
+      <section className="py-10 sm:py-14 lg:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-b border-white/5 bg-gradient-to-b from-transparent via-white/[0.01] to-transparent">
         <SectionHeading 
           tagline="SHOWCASE YOUR TALENT"
           title="THINK YOU CAN OWN THE STAGE?"
@@ -172,7 +172,7 @@ const Home = () => {
         {loading ? (
           <div className="text-center py-12 text-gray-400">Loading active audition hunts...</div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-8">
             {auditions.map(audition => (
               <AuditionCard key={audition.id} audition={audition} />
             ))}
@@ -187,7 +187,7 @@ const Home = () => {
       </section>
 
       {/* Upcoming Live Shows */}
-      <section className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-b border-white/5">
+      <section className="py-10 sm:py-14 lg:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-b border-white/5">
         <SectionHeading 
           tagline="LIVE TOUR 2026"
           title="UPCOMING LIVE EVENTS & SHOWS"
@@ -197,7 +197,7 @@ const Home = () => {
         {loading ? (
           <div className="text-center py-12 text-gray-400">Loading upcoming shows...</div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-8">
             {shows.map(show => (
               <ShowCard key={show.id} show={show} />
             ))}
@@ -212,14 +212,14 @@ const Home = () => {
       </section>
 
       {/* Featured Episodes Section */}
-      <section className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-b border-white/5">
+      <section className="py-10 sm:py-14 lg:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-b border-white/5">
         <SectionHeading 
           tagline="WATCH ANYTIME"
           title="FEATURED EPISODES"
           subtitle="Catch up on the latest episodes, guest appearances, and hilarious moments."
         />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {episodes.map(ep => (
             <EpisodeCard key={ep.id} episode={ep} />
           ))}
@@ -233,13 +233,13 @@ const Home = () => {
       </section>
 
       {/* CTA Footer Banner */}
-      <section className="py-20 px-4 max-w-5xl mx-auto text-center">
-        <div className="cinematic-card p-12 rounded-3xl relative overflow-hidden border border-white/10">
+      <section className="py-10 sm:py-14 px-4 max-w-5xl mx-auto text-center">
+        <div className="cinematic-card p-8 sm:p-12 rounded-3xl relative overflow-hidden border border-white/10">
           <div className="absolute inset-0 bg-gradient-to-r from-[#B51D2A]/20 via-transparent to-[#D6A84F]/20 pointer-events-none" />
-          <h2 className="text-3xl sm:text-5xl font-extrabold uppercase font-heading text-white mb-4">
+          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold uppercase font-heading text-white mb-3 sm:mb-4">
             SEE YOU AT THE SHOW.
           </h2>
-          <p className="text-gray-300 text-base sm:text-lg max-w-xl mx-auto font-light mb-8">
+          <p className="text-gray-300 text-sm sm:text-lg max-w-xl mx-auto font-light mb-6 sm:mb-8">
             Book your tickets now or step into the spotlight by submitting your audition.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4">

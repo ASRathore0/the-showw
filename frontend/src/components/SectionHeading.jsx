@@ -2,7 +2,7 @@ import React from 'react';
 
 const SectionHeading = ({ title, subtitle, tagline, align = 'center' }) => {
   return (
-    <div className={`mb-12 ${align === 'center' ? 'text-center' : align === 'left' ? 'text-left' : 'text-right'}`}>
+    <div className={`mb-8 sm:mb-10 ${align === 'center' ? 'text-center' : align === 'left' ? 'text-left' : 'text-right'}`}>
       {tagline && (
         <span className="inline-block text-xs font-bold text-[#B51D2A] uppercase tracking-widest mb-2">
           {tagline}
