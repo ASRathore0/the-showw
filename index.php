@@ -4,11 +4,39 @@
  * Handles routing between React SPA frontend and Laravel API backend
  */
 
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
 $uri = urldecode(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
+
+// 0. Verify Laravel Vendor dependencies exist
+$vendorPath = __DIR__ . '/backend/vendor/autoload.php';
+if (!file_exists($vendorPath)) {
+    if (str_starts_with($uri, '/api')) {
+        header('Content-Type: application/json', true, 500);
+        echo json_encode([
+            'status' => 'error',
+            'error_type' => 'COMPOSER_VENDOR_MISSING',
+            'message' => 'Composer vendor dependencies missing. Run "composer install" inside public_html/backend in Hostinger SSH.'
+        ]);
+        exit;
+    }
+}
 
 // 1. Forward API requests to Laravel Backend
 if (str_starts_with($uri, '/api')) {
-    require_once __DIR__ . '/backend/public/index.php';
+    try {
+        require_once __DIR__ . '/backend/public/index.php';
+    } catch (\Throwable $e) {
+        header('Content-Type: application/json', true, 500);
+        echo json_encode([
+            'status' => 'error',
+            'error_type' => 'LARAVEL_FATAL_ERROR',
+            'message' => $e->getMessage(),
+            'file' => $e->getFile(),
+            'line' => $e->getLine()
+        ]);
+    }
     exit;
 }
 
