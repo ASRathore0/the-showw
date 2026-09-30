@@ -16,8 +16,7 @@ export const getMediaUrl = (url, fallback = '/assets/images/jp-yadav-show-logo.p
 
   // If storage path e.g. /storage/... or storage/...
   if (cleanUrl.startsWith('/storage/') || cleanUrl.startsWith('storage/')) {
-    const relativePath = cleanUrl.startsWith('/') ? cleanUrl : '/' + cleanUrl;
-    return `http://127.0.0.1:8000${relativePath}`;
+    return cleanUrl.startsWith('/') ? cleanUrl : '/' + cleanUrl;
   }
 
   // Relative public asset
