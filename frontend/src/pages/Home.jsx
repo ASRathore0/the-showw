@@ -47,29 +47,29 @@ const Home = () => {
       <HeroVideo />
 
       {/* About / The Show Section */}
-      <section className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-b border-white/5">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <section className="py-12 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-b border-white/5">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
-          <div className="lg:col-span-6 space-y-6">
-            <span className="text-xs font-bold text-[#B51D2A] uppercase tracking-widest">
+          <div className="lg:col-span-6 space-y-4 sm:space-y-6">
+            <span className="text-xs font-bold text-[#B51D2A] uppercase tracking-widest block">
               {settings.about_tagline || "MORE THAN A SHOW"}
             </span>
-            <h2 className="text-3xl sm:text-5xl font-extrabold font-heading uppercase leading-tight">
+            <h2 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold font-heading uppercase leading-tight">
               {settings.about_heading || "WHERE COMEDY MEETS REAL TALENT"}
             </h2>
-            <p className="text-gray-300 text-base sm:text-lg leading-relaxed font-light">
+            <p className="text-gray-300 text-sm sm:text-lg leading-relaxed font-light italic border-l-2 border-[#B51D2A] pl-3 sm:pl-4 py-0.5">
               {settings.about_quote || '"Bringing together comedy, conversations, music, talent and unforgettable live experiences."'}
             </p>
-            <p className="text-gray-400 text-sm leading-relaxed">
+            <p className="text-gray-400 text-xs sm:text-sm leading-relaxed">
               {settings.about_p1 || "Designed as a premier OTT and live entertainment platform, we celebrate vibrant cultural talent through top-tier standup, mimicry, storytelling, and musical performances."}
             </p>
             
-            <div className="pt-4 flex items-center gap-6">
-              <Link to="/about" className="btn-primary py-3 px-6 text-sm">
+            <div className="pt-2 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6">
+              <Link to="/about" className="btn-primary py-3 px-6 text-xs sm:text-sm w-full sm:w-auto justify-center">
                 DISCOVER THE STORY <ArrowRight className="w-4 h-4" />
               </Link>
-              <div className="flex items-center gap-2 text-xs text-[#D6A84F] font-semibold uppercase tracking-wider">
-                <Award className="w-4 h-4" /> Season 3 Live
+              <div className="flex items-center justify-center sm:justify-start gap-2 text-xs text-[#D6A84F] font-semibold uppercase tracking-wider py-1">
+                <Award className="w-4 h-4 flex-shrink-0" /> Season 3 Live
               </div>
             </div>
           </div>
@@ -79,12 +79,12 @@ const Home = () => {
               <img 
                 src={getMediaUrl(settings.about_image_url, "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=1000")} 
                 alt={`${settings.site_title || "Show"} Stage`} 
-                className="w-full h-[420px] object-cover transition-transform duration-700 group-hover:scale-105 filter brightness-90"
+                className="w-full h-64 sm:h-80 lg:h-[420px] object-cover transition-transform duration-700 group-hover:scale-105 filter brightness-90"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
-              <div className="absolute bottom-6 left-6 right-6 p-4 rounded-xl bg-black/70 backdrop-blur-md border border-white/10">
-                <div className="text-xs font-bold text-[#D6A84F] uppercase tracking-widest mb-1">LIVE EXPERIENCE</div>
-                <div className="text-lg font-bold text-white">Full-House Audiences Across India</div>
+              <div className="absolute bottom-3 left-3 right-3 sm:bottom-6 sm:left-6 sm:right-6 p-3 sm:p-4 rounded-xl bg-black/80 backdrop-blur-md border border-white/10">
+                <div className="text-[10px] sm:text-xs font-bold text-[#D6A84F] uppercase tracking-widest mb-0.5 sm:mb-1">LIVE EXPERIENCE</div>
+                <div className="text-xs sm:text-base lg:text-lg font-bold text-white">Full-House Audiences Across India</div>
               </div>
             </div>
           </div>
