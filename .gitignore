@@ -11,7 +11,7 @@ backend/.env
 frontend/.env
 
 # Build outputs
-frontend/dist/
+# frontend/dist/
 frontend/dist-ssr/
 backend/public/build/
 backend/public/storage

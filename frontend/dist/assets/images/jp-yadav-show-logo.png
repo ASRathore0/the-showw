@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="goldOuter" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFE28A" />
+      <stop offset="50%" stop-color="#D6A84F" />
+      <stop offset="100%" stop-color="#996D19" />
+    </linearGradient>
+    
+    <linearGradient id="redFrame" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#800C16" />
+      <stop offset="50%" stop-color="#54070E" />
+      <stop offset="100%" stop-color="#300307" />
+    </linearGradient>
+
+    <linearGradient id="greenInner" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#072618" />
+      <stop offset="50%" stop-color="#0B3B26" />
+      <stop offset="100%" stop-color="#072618" />
+    </linearGradient>
+
+    <linearGradient id="textGold" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFF3AD" />
+      <stop offset="40%" stop-color="#FCD24D" />
+      <stop offset="100%" stop-color="#C78E1B" />
+    </linearGradient>
+
+    <filter id="dropShadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000" flood-opacity="0.8" />
+    </filter>
+  </defs>
+
+  <!-- Base Marquee Shape -->
+  <g filter="url(#dropShadow)">
+    <!-- Top Crown Ornament -->
+    <path d="M 370 65 Q 400 35 430 65 Q 410 75 400 85 Q 390 75 370 65 Z" fill="url(#goldOuter)" stroke="#FFE28A" stroke-width="2"/>
+    <circle cx="400" cy="45" r="8" fill="#FFF3AD"/>
+
+    <!-- Outer Gold Frame -->
+    <path d="M 170 85 Q 400 50 630 85 Q 680 90 740 180 Q 770 260 740 330 Q 680 430 630 435 Q 400 470 170 435 Q 120 430 60 330 Q 30 260 60 180 Q 120 90 170 85 Z" fill="url(#goldOuter)"/>
+    
+    <!-- Red Main Body -->
+    <path d="M 180 97 Q 400 65 620 97 Q 668 102 724 187 Q 752 260 724 323 Q 668 418 620 423 Q 400 455 180 423 Q 132 418 76 323 Q 48 260 76 187 Q 132 102 180 97 Z" fill="url(#redFrame)" stroke="url(#goldOuter)" stroke-width="4"/>
+
+    <!-- Marquee Bulbs/Dots around border -->
+    <g fill="#FFF3AD" stroke="#D6A84F" stroke-width="1.5">
+      <!-- Top Arc Bulbs -->
+      <circle cx="200" cy="100" r="5"/><circle cx="240" cy="94" r="5"/><circle cx="280" cy="90" r="5"/><circle cx="320" cy="87" r="5"/><circle cx="360" cy="85" r="5"/><circle cx="400" cy="84" r="5"/><circle cx="440" cy="85" r="5"/><circle cx="480" cy="87" r="5"/><circle cx="520" cy="90" r="5"/><circle cx="560" cy="94" r="5"/><circle cx="600" cy="100" r="5"/>
+      <!-- Bottom Arc Bulbs -->
+      <circle cx="200" cy="420" r="5"/><circle cx="240" cy="426" r="5"/><circle cx="280" cy="430" r="5"/><circle cx="320" cy="433" r="5"/><circle cx="360" cy="435" r="5"/><circle cx="400" cy="436" r="5"/><circle cx="440" cy="435" r="5"/><circle cx="480" cy="433" r="5"/><circle cx="520" cy="430" r="5"/><circle cx="560" cy="426" r="5"/><circle cx="600" cy="420" r="5"/>
+    </g>
+
+    <!-- Top Badge "THE" -->
+    <g transform="translate(400, 135)">
+      <text x="0" y="0" font-family="'Impact', 'Arial Black', sans-serif" font-size="44" font-weight="900" fill="#FFFFFF" text-anchor="middle" stroke="#54070E" stroke-width="4">THE</text>
+    </g>
+
+    <!-- Center Green Box for "JP YADAV" -->
+    <rect x="110" y="155" width="580" height="150" rx="12" fill="url(#greenInner)" stroke="url(#goldOuter)" stroke-width="6" />
+    <circle cx="125" cy="170" r="4" fill="#D6A84F"/><circle cx="675" cy="170" r="4" fill="#D6A84F"/>
+    <circle cx="125" cy="290" r="4" fill="#D6A84F"/><circle cx="675" cy="290" r="4" fill="#D6A84F"/>
+
+    <!-- "JP YADAV" Text -->
+    <g transform="translate(400, 262)">
+      <text x="0" y="0" font-family="'Impact', 'Arial Black', sans-serif" font-size="96" font-weight="900" fill="url(#textGold)" text-anchor="middle" stroke="#231003" stroke-width="10" letter-spacing="4">JP YADAV</text>
+      <text x="0" y="0" font-family="'Impact', 'Arial Black', sans-serif" font-size="96" font-weight="900" fill="url(#textGold)" text-anchor="middle" letter-spacing="4">JP YADAV</text>
+    </g>
+
+    <!-- Bottom Badge "SHOW" -->
+    <g transform="translate(240, 368)">
+      <text x="0" y="0" font-family="'Impact', 'Arial Black', sans-serif" font-size="64" font-weight="900" fill="#FFFFFF" stroke="#54070E" stroke-width="6">SH</text>
+    </g>
+    
+    <!-- Blue Glasses Smiley Icon in "SHOW" -->
+    <g transform="translate(400, 348)">
+      <circle cx="0" cy="0" r="32" fill="#1D4ED8" stroke="#FFFFFF" stroke-width="4"/>
+      <!-- Glasses -->
+      <rect x="-20" y="-12" width="16" height="12" rx="3" fill="#FFFFFF"/>
+      <rect x="4" y="-12" width="16" height="12" rx="3" fill="#FFFFFF"/>
+      <line x1="-4" y1="-6" x2="4" y2="-6" stroke="#FFFFFF" stroke-width="3"/>
+      <!-- Smile -->
+      <path d="M -14 8 Q 0 22 14 8" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>
+    </g>
+
+    <g transform="translate(460, 368)">
+      <text x="0" y="0" font-family="'Impact', 'Arial Black', sans-serif" font-size="64" font-weight="900" fill="#FFFFFF" stroke="#54070E" stroke-width="6">W</text>
+    </g>
+
+    <!-- Bottom Fleur Ornament -->
+    <path d="M 380 435 Q 400 465 420 435 Q 400 445 380 435 Z" fill="url(#goldOuter)"/>
+  </g>
+</svg>
