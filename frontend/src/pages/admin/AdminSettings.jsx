@@ -4,7 +4,7 @@ import AdminHeader from '../../components/admin/AdminHeader';
 import { useSettings } from '../../context/SettingsContext';
 import { getMediaUrl } from '../../utils/formatUrl';
 import apiClient from '../../api/axios';
-import { Save, Image as ImageIcon, Video, Sparkles, Layout, Info, Layers, CheckCircle2, AlertCircle, Upload, Loader2, FileVideo } from 'lucide-react';
+import { Save, Image as ImageIcon, Video, Sparkles, Layout, Info, Layers, CheckCircle2, AlertCircle, Upload, Loader2, FileVideo, Share2 } from 'lucide-react';
 
 const AdminSettings = () => {
   const { settings, saveSettings } = useSettings();
@@ -162,7 +162,7 @@ const AdminSettings = () => {
                 <Sparkles className="w-5 h-5 text-[#D6A84F]" /> Customize Website Content & Branding
               </h1>
               <p className="text-xs text-gray-400 mt-1">
-                Upload files manually or enter URL paths for logo, video background, about images, and experience pillars.
+                Upload files manually or enter URL paths for logo, favicon, video background, and social media handles.
               </p>
             </div>
             
@@ -200,7 +200,19 @@ const AdminSettings = () => {
                   : 'text-gray-400 hover:text-white'
               }`}
             >
-              <ImageIcon className="w-4 h-4" /> Platform Logo & Branding
+              <ImageIcon className="w-4 h-4" /> Logo, Title & Favicon
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setActiveTab('social')}
+              className={`py-3 px-5 text-xs font-bold rounded-t-lg flex items-center gap-2 transition-colors whitespace-nowrap ${
+                activeTab === 'social' 
+                  ? 'bg-[#161C2A] text-[#D6A84F] border-t-2 border-[#D6A84F]' 
+                  : 'text-gray-400 hover:text-white'
+              }`}
+            >
+              <Share2 className="w-4 h-4" /> Social Media Links
             </button>
 
             <button
@@ -243,16 +255,16 @@ const AdminSettings = () => {
           {/* Form Content */}
           <form onSubmit={handleSave} className="space-y-6">
 
-            {/* TAB 1: BRANDING & LOGO */}
+            {/* TAB 1: BRANDING, LOGO & FAVICON */}
             {activeTab === 'branding' && (
               <div className="bg-[#0F131C] p-8 rounded-xl border border-[#1E2638] space-y-6 animate-fadeIn">
                 <h3 className="text-sm font-bold text-white uppercase tracking-wider text-[#D6A84F]">
-                  1. BRANDING & LOGO SETTINGS
+                  1. BRANDING, LOGO & FAVICON SETTINGS
                 </h3>
 
                 <div className="grid grid-cols-1 gap-6">
                   <div>
-                    <label className="block text-gray-300 font-bold mb-2 text-xs">Platform Brand Title</label>
+                    <label className="block text-gray-300 font-bold mb-2 text-xs">Website & Browser Tab Title</label>
                     <input 
                       type="text" 
                       value={formData.site_title || ''} 
@@ -268,6 +280,13 @@ const AdminSettings = () => {
                     fieldKey="logo_url" 
                     placeholder="/assets/images/jp-yadav-show-logo.png"
                     accept="image/*"
+                  />
+
+                  <MediaField 
+                    label="Website Favicon Icon (.ico, .png, .svg)" 
+                    fieldKey="favicon_url" 
+                    placeholder="/favicon.svg"
+                    accept="image/x-icon,image/png,image/svg+xml,image/jpeg"
                   />
                 </div>
 
@@ -289,6 +308,75 @@ const AdminSettings = () => {
                       value={formData.support_email || ''} 
                       onChange={e => handleChange('support_email', e.target.value)}
                       className="w-full bg-[#161C2A] border border-[#263148] rounded-lg p-3 text-sm text-white focus:outline-none focus:border-[#D6A84F]"
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* TAB: SOCIAL MEDIA LINKS */}
+            {activeTab === 'social' && (
+              <div className="bg-[#0F131C] p-8 rounded-xl border border-[#1E2638] space-y-6 animate-fadeIn">
+                <h3 className="text-sm font-bold text-white uppercase tracking-wider text-[#D6A84F]">
+                  SOCIAL MEDIA HANDLES & EXTERNAL LINKS
+                </h3>
+                <p className="text-xs text-gray-400">
+                  These social media links will automatically display in the public website footer and contact channels.
+                </p>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label className="block text-gray-300 font-bold mb-2 text-xs">YouTube Channel URL</label>
+                    <input 
+                      type="url" 
+                      value={formData.youtube_url || ''} 
+                      onChange={e => handleChange('youtube_url', e.target.value)}
+                      className="w-full bg-[#161C2A] border border-[#263148] rounded-lg p-3 text-sm text-white focus:outline-none focus:border-[#D6A84F]"
+                      placeholder="https://youtube.com/@TheJPYadavShow"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-gray-300 font-bold mb-2 text-xs">Instagram Page URL</label>
+                    <input 
+                      type="url" 
+                      value={formData.instagram_url || ''} 
+                      onChange={e => handleChange('instagram_url', e.target.value)}
+                      className="w-full bg-[#161C2A] border border-[#263148] rounded-lg p-3 text-sm text-white focus:outline-none focus:border-[#D6A84F]"
+                      placeholder="https://instagram.com/jpyadavshow"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-gray-300 font-bold mb-2 text-xs">Facebook Page URL</label>
+                    <input 
+                      type="url" 
+                      value={formData.facebook_url || ''} 
+                      onChange={e => handleChange('facebook_url', e.target.value)}
+                      className="w-full bg-[#161C2A] border border-[#263148] rounded-lg p-3 text-sm text-white focus:outline-none focus:border-[#D6A84F]"
+                      placeholder="https://facebook.com/jpyadavshow"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-gray-300 font-bold mb-2 text-xs">Twitter / X Profile URL</label>
+                    <input 
+                      type="url" 
+                      value={formData.twitter_url || ''} 
+                      onChange={e => handleChange('twitter_url', e.target.value)}
+                      className="w-full bg-[#161C2A] border border-[#263148] rounded-lg p-3 text-sm text-white focus:outline-none focus:border-[#D6A84F]"
+                      placeholder="https://x.com/jpyadavshow"
+                    />
+                  </div>
+
+                  <div className="md:col-span-2">
+                    <label className="block text-gray-300 font-bold mb-2 text-xs">WhatsApp Direct Chat Link / Number</label>
+                    <input 
+                      type="text" 
+                      value={formData.whatsapp_url || ''} 
+                      onChange={e => handleChange('whatsapp_url', e.target.value)}
+                      className="w-full bg-[#161C2A] border border-[#263148] rounded-lg p-3 text-sm text-white focus:outline-none focus:border-[#D6A84F]"
+                      placeholder="https://wa.me/919876543210"
                     />
                   </div>
                 </div>

@@ -1,11 +1,20 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import apiClient from '../api/axios';
+import { getMediaUrl } from '../utils/formatUrl';
 
 const defaultSettings = {
   site_title: 'THE JP YADAV SHOW',
-  logo_url: '/assets/images/jp-yadav-show-logo.png',
+  logo_url: '',
+  favicon_url: '/favicon.svg',
   support_phone: '+91 9876543210',
   support_email: 'contact@jpyadavshow.com',
+
+  // Social Media Links
+  youtube_url: 'https://youtube.com',
+  instagram_url: 'https://instagram.com',
+  facebook_url: 'https://facebook.com',
+  twitter_url: 'https://twitter.com',
+  whatsapp_url: 'https://wa.me/919876543210',
 
   // Hero Section
   hero_title: 'THE JP YADAV SHOW',
@@ -72,6 +81,22 @@ export const SettingsProvider = ({ children }) => {
   useEffect(() => {
     fetchSettings();
   }, []);
+
+  // Update Document Title & Favicon dynamically when settings change
+  useEffect(() => {
+    if (settings.site_title) {
+      document.title = settings.site_title;
+    }
+    if (settings.favicon_url) {
+      let faviconLink = document.querySelector("link[rel*='icon']");
+      if (!faviconLink) {
+        faviconLink = document.createElement('link');
+        faviconLink.rel = 'shortcut icon';
+        document.getElementsByTagName('head')[0].appendChild(faviconLink);
+      }
+      faviconLink.href = getMediaUrl(settings.favicon_url);
+    }
+  }, [settings]);
 
   const saveSettings = async (updatedMap) => {
     const response = await apiClient.post('/admin/settings', { settings: updatedMap });

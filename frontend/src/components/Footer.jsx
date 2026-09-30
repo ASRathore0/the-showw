@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Ticket, Sparkles, Phone, Mail, MapPin, Video, Camera, Globe } from 'lucide-react';
+import { Ticket, Sparkles, Phone, Mail, MapPin, Video, Camera, Globe, Share2, MessageCircle } from 'lucide-react';
 import { useSettings } from '../context/SettingsContext';
 import { getMediaUrl } from '../utils/formatUrl';
 
@@ -75,16 +75,32 @@ const Footer = () => {
               <span>{settings.support_email || "contact@jpyadavshow.com"}</span>
             </div>
 
-            <div className="pt-4 flex items-center gap-4">
-              <a href="https://youtube.com" target="_blank" rel="noreferrer" className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:border-[#B51D2A] hover:text-[#B51D2A] transition-colors" title="YouTube Channel">
-                <Video className="w-4 h-4" />
-              </a>
-              <a href="https://instagram.com" target="_blank" rel="noreferrer" className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:border-[#B51D2A] hover:text-[#B51D2A] transition-colors" title="Instagram Page">
-                <Camera className="w-4 h-4" />
-              </a>
-              <a href="https://facebook.com" target="_blank" rel="noreferrer" className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:border-[#B51D2A] hover:text-[#B51D2A] transition-colors" title="Facebook Page">
-                <Globe className="w-4 h-4" />
-              </a>
+            <div className="pt-4 flex items-center gap-3 flex-wrap">
+              {settings?.youtube_url && (
+                <a href={settings.youtube_url} target="_blank" rel="noreferrer" className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:border-[#B51D2A] hover:text-[#B51D2A] transition-colors" title="YouTube Channel">
+                  <Video className="w-4 h-4" />
+                </a>
+              )}
+              {settings?.instagram_url && (
+                <a href={settings.instagram_url} target="_blank" rel="noreferrer" className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:border-[#B51D2A] hover:text-[#B51D2A] transition-colors" title="Instagram Page">
+                  <Camera className="w-4 h-4" />
+                </a>
+              )}
+              {settings?.facebook_url && (
+                <a href={settings.facebook_url} target="_blank" rel="noreferrer" className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:border-[#B51D2A] hover:text-[#B51D2A] transition-colors" title="Facebook Page">
+                  <Globe className="w-4 h-4" />
+                </a>
+              )}
+              {settings?.twitter_url && (
+                <a href={settings.twitter_url} target="_blank" rel="noreferrer" className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:border-[#B51D2A] hover:text-[#B51D2A] transition-colors" title="Twitter / X">
+                  <Share2 className="w-4 h-4" />
+                </a>
+              )}
+              {settings?.whatsapp_url && (
+                <a href={settings.whatsapp_url} target="_blank" rel="noreferrer" className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:border-green-500 hover:text-green-500 transition-colors" title="WhatsApp Support">
+                  <MessageCircle className="w-4 h-4" />
+                </a>
+              )}
             </div>
           </div>
 
