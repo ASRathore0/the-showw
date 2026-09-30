@@ -10,6 +10,7 @@ const AdminApplicants = () => {
   const [selectedStatus, setSelectedStatus] = useState('All');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   // Modals state
   const [detailModalApp, setDetailModalApp] = useState(null);
@@ -94,12 +95,12 @@ const AdminApplicants = () => {
 
   return (
     <div className="bg-[#0A0D14] text-gray-200 min-h-screen flex font-sans">
-      <AdminSidebar />
+      <AdminSidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
       <div className="flex-1 flex flex-col min-w-0 overflow-y-auto">
-        <AdminHeader title="Applicant Management &amp; Auditions" />
+        <AdminHeader title="Applicant Management &amp; Auditions" onMenuToggle={() => setSidebarOpen(!sidebarOpen)} />
 
-        <main className="p-8 space-y-6 max-w-7xl">
+        <main className="p-4 sm:p-8 space-y-6 max-w-7xl">
           
           {/* Controls Bar: Filters & Search */}
           <div className="admin-card p-5 rounded-xl border border-[#1E2638] bg-[#0F131C] flex flex-wrap items-center justify-between gap-4">

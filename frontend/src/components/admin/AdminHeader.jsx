@@ -1,16 +1,26 @@
 import React from 'react';
-import { Bell, Search, User, ShieldCheck } from 'lucide-react';
+import { Bell, Search, User, ShieldCheck, Menu } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
-const AdminHeader = ({ title = 'Operational Dashboard' }) => {
+const AdminHeader = ({ title = 'Operational Dashboard', onMenuToggle }) => {
   const { user } = useAuth();
 
   return (
-    <header className="h-16 bg-[#0F131C] border-b border-[#1E2638] px-8 flex items-center justify-between sticky top-0 z-20">
+    <header className="h-16 bg-[#0F131C] border-b border-[#1E2638] px-4 sm:px-8 flex items-center justify-between sticky top-0 z-20">
       
-      {/* Title */}
-      <div>
-        <h1 className="text-lg font-bold text-white font-heading tracking-wide uppercase">{title}</h1>
+      {/* Title & Mobile Hamburger Menu Toggle */}
+      <div className="flex items-center gap-3">
+        {onMenuToggle && (
+          <button 
+            type="button"
+            onClick={onMenuToggle}
+            className="md:hidden p-1.5 rounded-lg text-gray-400 hover:text-white hover:bg-[#161C2A] transition-colors"
+            title="Open Menu"
+          >
+            <Menu className="w-5 h-5" />
+          </button>
+        )}
+        <h1 className="text-sm sm:text-lg font-bold text-white font-heading tracking-wide uppercase truncate max-w-[200px] sm:max-w-none">{title}</h1>
       </div>
 
       {/* Right Search, Notifications & User Info */}

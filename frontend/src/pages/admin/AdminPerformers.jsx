@@ -8,6 +8,7 @@ const AdminPerformers = () => {
   const [performers, setPerformers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -51,12 +52,12 @@ const AdminPerformers = () => {
 
   return (
     <div className="bg-[#0A0D14] text-gray-200 min-h-screen flex font-sans">
-      <AdminSidebar />
+      <AdminSidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
       <div className="flex-1 flex flex-col min-w-0 overflow-y-auto">
-        <AdminHeader title="Performer Roster &amp; Artist CMS" />
+        <AdminHeader title="Performer Roster &amp; Artist CMS" onMenuToggle={() => setSidebarOpen(!sidebarOpen)} />
 
-        <main className="p-8 space-y-6 max-w-7xl">
+        <main className="p-4 sm:p-8 space-y-6 max-w-7xl">
           
           <div className="flex justify-between items-center">
             <div>

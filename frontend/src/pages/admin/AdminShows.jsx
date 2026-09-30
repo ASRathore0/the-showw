@@ -8,6 +8,7 @@ const AdminShows = () => {
   const [shows, setShows] = useState([]);
   const [loading, setLoading] = useState(true);
   const [createModalOpen, setCreateModalOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const [formData, setFormData] = useState({
     title: '',
@@ -62,12 +63,12 @@ const AdminShows = () => {
 
   return (
     <div className="bg-[#0A0D14] text-gray-200 min-h-screen flex font-sans">
-      <AdminSidebar />
+      <AdminSidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
       <div className="flex-1 flex flex-col min-w-0 overflow-y-auto">
-        <AdminHeader title="Show &amp; Venue Management" />
+        <AdminHeader title="Show &amp; Venue Management" onMenuToggle={() => setSidebarOpen(!sidebarOpen)} />
 
-        <main className="p-8 space-y-6 max-w-7xl">
+        <main className="p-4 sm:p-8 space-y-6 max-w-7xl">
           
           <div className="flex items-center justify-between">
             <div>

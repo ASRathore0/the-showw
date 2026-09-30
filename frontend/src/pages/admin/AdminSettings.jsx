@@ -14,6 +14,7 @@ const AdminSettings = () => {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState(null);
   const [uploadingField, setUploadingField] = useState(null);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     setFormData({ ...settings });
@@ -148,12 +149,12 @@ const AdminSettings = () => {
 
   return (
     <div className="bg-[#0A0D14] text-gray-200 min-h-screen flex font-sans">
-      <AdminSidebar />
+      <AdminSidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
       <div className="flex-1 flex flex-col min-w-0 overflow-y-auto">
-        <AdminHeader title="Platform Settings & CMS Customization" />
+        <AdminHeader title="Platform Settings & CMS Customization" onMenuToggle={() => setSidebarOpen(!sidebarOpen)} />
 
-        <main className="p-8 space-y-6 max-w-6xl">
+        <main className="p-4 sm:p-8 space-y-6 max-w-6xl">
 
           {/* Section Header */}
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-[#0F131C] p-6 rounded-xl border border-[#1E2638]">

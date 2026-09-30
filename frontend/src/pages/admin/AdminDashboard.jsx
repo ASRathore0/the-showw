@@ -26,6 +26,7 @@ import {
 const AdminDashboard = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     apiClient.get('/admin/dashboard')
@@ -38,12 +39,12 @@ const AdminDashboard = () => {
 
   return (
     <div className="bg-[#0A0D14] text-gray-200 min-h-screen flex font-sans">
-      <AdminSidebar />
+      <AdminSidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
       <div className="flex-1 flex flex-col min-w-0 overflow-y-auto">
-        <AdminHeader title="Operational SaaS Overview" />
+        <AdminHeader title="Operational SaaS Overview" onMenuToggle={() => setSidebarOpen(!sidebarOpen)} />
 
-        <main className="p-8 space-y-8 max-w-7xl">
+        <main className="p-4 sm:p-8 space-y-8 max-w-7xl">
           
           {loading ? (
             <div className="text-center py-20 text-gray-400">Loading SaaS metrics...</div>

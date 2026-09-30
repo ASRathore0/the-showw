@@ -7,6 +7,7 @@ import { Users } from 'lucide-react';
 const AdminCustomers = () => {
   const [customers, setCustomers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     apiClient.get('/admin/customers')
@@ -19,12 +20,12 @@ const AdminCustomers = () => {
 
   return (
     <div className="bg-[#0A0D14] text-gray-200 min-h-screen flex font-sans">
-      <AdminSidebar />
+      <AdminSidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
       <div className="flex-1 flex flex-col min-w-0 overflow-y-auto">
-        <AdminHeader title="Registered Audience &amp; Customers" />
+        <AdminHeader title="Registered Audience &amp; Customers" onMenuToggle={() => setSidebarOpen(!sidebarOpen)} />
 
-        <main className="p-8 space-y-6 max-w-7xl">
+        <main className="p-4 sm:p-8 space-y-6 max-w-7xl">
           
           <div className="flex justify-between items-center">
             <h2 className="text-xl font-bold text-white font-heading uppercase">CUSTOMER DIRECTORY</h2>

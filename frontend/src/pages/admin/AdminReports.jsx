@@ -9,6 +9,7 @@ const AdminReports = () => {
   const [data, setData] = useState(null);
   const [dateFilter, setDateFilter] = useState('30 days');
   const [loading, setLoading] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     apiClient.get('/admin/reports')
@@ -38,12 +39,12 @@ const AdminReports = () => {
 
   return (
     <div className="bg-[#0A0D14] text-gray-200 min-h-screen flex font-sans">
-      <AdminSidebar />
+      <AdminSidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
       <div className="flex-1 flex flex-col min-w-0 overflow-y-auto">
-        <AdminHeader title="Reports &amp; Financial Analytics" />
+        <AdminHeader title="Reports &amp; Financial Analytics" onMenuToggle={() => setSidebarOpen(!sidebarOpen)} />
 
-        <main className="p-8 space-y-6 max-w-7xl">
+        <main className="p-4 sm:p-8 space-y-6 max-w-7xl">
           
           {/* Header Controls */}
           <div className="admin-card p-5 rounded-xl border border-[#1E2638] bg-[#0F131C] flex flex-wrap items-center justify-between gap-4">

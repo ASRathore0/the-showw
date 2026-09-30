@@ -12,13 +12,14 @@ import {
   Settings, 
   LogOut,
   Sparkles,
-  FileSpreadsheet
+  FileSpreadsheet,
+  X
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useSettings } from '../../context/SettingsContext';
 import { getMediaUrl } from '../../utils/formatUrl';
 
-const AdminSidebar = () => {
+const AdminSidebar = ({ isOpen, onClose }) => {
   const location = useLocation();
   const { logout } = useAuth();
   const { settings } = useSettings();
@@ -37,27 +38,51 @@ const AdminSidebar = () => {
   ];
 
   return (
-    <aside className="w-64 bg-[#0F131C] border-r border-[#1E2638] flex flex-col justify-between h-screen sticky top-0 z-30 text-gray-300">
-      
-      <div>
-        {/* Admin Header Branding */}
-        <div className="p-6 border-b border-[#1E2638] flex items-center gap-3">
-          {settings?.logo_url ? (
-            <img 
-              src={getMediaUrl(settings.logo_url)} 
-              alt="Logo" 
-              className="h-9 w-auto object-contain"
-            />
-          ) : (
-            <div className="w-8 h-8 rounded bg-[#B51D2A] text-white flex items-center justify-center font-bold text-xs">
-              JP
+    <>
+      {/* Mobile Backdrop Overlay */}
+      {isOpen && (
+        <div 
+          onClick={onClose}
+          className="fixed inset-0 bg-black/80 backdrop-blur-sm z-40 md:hidden animate-fadeIn"
+        />
+      )}
+
+      <aside className={`fixed md:sticky top-0 bottom-0 left-0 z-50 md:z-30 w-64 bg-[#0F131C] border-r border-[#1E2638] flex flex-col justify-between h-screen text-gray-300 transition-transform duration-300 ease-in-out ${
+        isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
+      }`}>
+        
+        <div className="overflow-y-auto">
+          {/* Admin Header Branding */}
+          <div className="p-5 border-b border-[#1E2638] flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              {settings?.logo_url ? (
+                <img 
+                  src={getMediaUrl(settings.logo_url)} 
+                  alt="Logo" 
+                  className="h-8 w-auto object-contain"
+                />
+              ) : (
+                <div className="w-8 h-8 rounded bg-[#B51D2A] text-white flex items-center justify-center font-bold text-xs">
+                  JP
+                </div>
+              )}
+              <div>
+                <div className="text-xs font-bold text-white tracking-wider uppercase font-heading">OPERATIONS SAAS</div>
+                <div className="text-[10px] text-[#D6A84F] font-semibold">ADMIN PORTAL</div>
+              </div>
             </div>
-          )}
-          <div>
-            <div className="text-xs font-bold text-white tracking-wider uppercase font-heading">OPERATIONS SAAS</div>
-            <div className="text-[10px] text-[#D6A84F] font-semibold">ADMIN PORTAL</div>
+
+            {/* Mobile Close Button */}
+            {onClose && (
+              <button 
+                type="button" 
+                onClick={onClose}
+                className="md:hidden text-gray-400 hover:text-white p-1"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            )}
           </div>
-        </div>
 
         {/* Navigation Items */}
         <nav className="p-4 space-y-1.5 text-xs font-medium">
@@ -69,6 +94,7 @@ const AdminSidebar = () => {
               <Link
                 key={item.path}
                 to={item.path}
+                onClick={() => { if (onClose) onClose(); }}
                 className={`flex items-center gap-3 px-3.5 py-2.5 rounded-lg transition-colors ${
                   isActive 
                     ? 'bg-[#B51D2A] text-white font-bold shadow-md shadow-[#B51D2A]/30' 
@@ -98,6 +124,7 @@ const AdminSidebar = () => {
       </div>
 
     </aside>
+  </>
   );
 };
 
