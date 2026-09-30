@@ -1,12 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Ticket, Sparkles, Calendar, MapPin, ChevronDown } from 'lucide-react';
 import { useSettings } from '../context/SettingsContext';
 import { getMediaUrl } from '../utils/formatUrl';
 
+const FALLBACK_HERO_VIDEO = "https://assets.mixkit.co/videos/preview/mixkit-stage-lights-shining-at-a-concert-4087-large.mp4";
+
 const HeroVideo = () => {
   const [videoError, setVideoError] = useState(false);
   const { settings } = useSettings();
+  const videoRef = useRef(null);
+
+  const rawVideoUrl = settings?.hero_video_url;
+  const videoSrc = (rawVideoUrl && rawVideoUrl !== '/assets/videos/jp-yadav-show-hero.mp4') 
+    ? getMediaUrl(rawVideoUrl) 
+    : FALLBACK_HERO_VIDEO;
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.muted = true;
+      videoRef.current.play().catch(err => {
+        console.warn("Autoplay attempt failed:", err);
+      });
+    }
+  }, [videoSrc]);
 
   return (
     <div className="relative w-full h-[95vh] min-h-[650px] bg-[#080808] flex items-center justify-center overflow-hidden">
@@ -14,16 +31,17 @@ const HeroVideo = () => {
       {/* Hero Video background with fallback */}
       {!videoError ? (
         <video
+          ref={videoRef}
           autoPlay
           muted
           loop
           playsInline
-          preload="metadata"
+          preload="auto"
           className="absolute inset-0 w-full h-full object-cover z-0 filter brightness-[0.80] contrast-[1.1]"
           onError={() => setVideoError(true)}
-          key={settings.hero_video_url}
+          key={videoSrc}
         >
-          <source src={getMediaUrl(settings.hero_video_url, "/assets/videos/jp-yadav-show-hero.mp4")} type="video/mp4" />
+          <source src={videoSrc} type="video/mp4" />
         </video>
       ) : null}
 
