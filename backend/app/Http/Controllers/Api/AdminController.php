@@ -363,6 +363,24 @@ class AdminController extends Controller
         return response()->json(['success' => true, 'message' => 'Episode created successfully', 'episode' => $episode], 201);
     }
 
+    public function updateEpisode(Request $request, $id)
+    {
+        $episode = Episode::findOrFail($id);
+        $validated = $request->validate([
+            'episode_no' => 'required|integer',
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'guest_name' => 'nullable|string|max:255',
+            'duration' => 'nullable|string|max:50',
+            'video_url' => 'required|string|max:255',
+            'thumbnail_path' => 'nullable|string|max:255',
+            'publish_date' => 'nullable|date'
+        ]);
+
+        $episode->update($validated);
+        return response()->json(['success' => true, 'message' => 'Episode updated successfully', 'episode' => $episode]);
+    }
+
     public function deleteEpisode($id)
     {
         $episode = Episode::findOrFail($id);

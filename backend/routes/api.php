@@ -111,6 +111,7 @@ Route::prefix('admin')->group(function () {
     // Episodes CMS
     Route::get('/episodes', [AdminController::class, 'episodes']);
     Route::post('/episodes', [AdminController::class, 'storeEpisode']);
+    Route::put('/episodes/{id}', [AdminController::class, 'updateEpisode']);
     Route::delete('/episodes/{id}', [AdminController::class, 'deleteEpisode']);
 
     // Gallery CMS

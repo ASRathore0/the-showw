@@ -2,24 +2,27 @@ import React, { useEffect, useState } from 'react';
 import AdminSidebar from '../../components/admin/AdminSidebar';
 import AdminHeader from '../../components/admin/AdminHeader';
 import apiClient from '../../api/axios';
-import { Video, Plus, Trash2, Clock, User, Play } from 'lucide-react';
+import { Video, Plus, Trash2, Edit3, Clock, User, Play, Sparkles } from 'lucide-react';
 
 const AdminEpisodes = () => {
   const [episodes, setEpisodes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [editingEpisode, setEditingEpisode] = useState(null);
 
-  const [formData, setFormData] = useState({
-    episode_no: 19,
+  const initialFormState = {
+    episode_no: 1,
     title: '',
     description: '',
     guest_name: '',
     duration: '50:00',
-    video_url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    video_url: '',
     thumbnail_path: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=800',
-    publish_date: '2026-10-01'
-  });
+    publish_date: new Date().toISOString().split('T')[0]
+  };
+
+  const [formData, setFormData] = useState(initialFormState);
 
   const fetchEpisodes = async () => {
     setLoading(true);
@@ -37,17 +40,50 @@ const AdminEpisodes = () => {
     fetchEpisodes();
   }, []);
 
-  const handleCreateEpisode = async (e) => {
+  const openCreateModal = () => {
+    setEditingEpisode(null);
+    setFormData({
+      ...initialFormState,
+      episode_no: episodes.length > 0 ? Math.max(...episodes.map(e => e.episode_no || 0)) + 1 : 1
+    });
+    setModalOpen(true);
+  };
+
+  const openEditModal = (ep) => {
+    setEditingEpisode(ep);
+    setFormData({
+      episode_no: ep.episode_no || 1,
+      title: ep.title || '',
+      description: ep.description || '',
+      guest_name: ep.guest_name || '',
+      duration: ep.duration || '50:00',
+      video_url: ep.video_url || '',
+      thumbnail_path: ep.thumbnail_path || 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=800',
+      publish_date: ep.publish_date || new Date().toISOString().split('T')[0]
+    });
+    setModalOpen(true);
+  };
+
+  const handleSubmitEpisode = async (e) => {
     e.preventDefault();
     try {
-      const res = await apiClient.post('/admin/episodes', formData);
-      if (res.data.success) {
-        alert('Episode created & published to OTT portal successfully!');
-        setModalOpen(false);
-        fetchEpisodes();
+      if (editingEpisode) {
+        const res = await apiClient.put(`/admin/episodes/${editingEpisode.id}`, formData);
+        if (res.data.success) {
+          alert('Episode updated successfully!');
+          setModalOpen(false);
+          fetchEpisodes();
+        }
+      } else {
+        const res = await apiClient.post('/admin/episodes', formData);
+        if (res.data.success) {
+          alert('Episode created & published successfully!');
+          setModalOpen(false);
+          fetchEpisodes();
+        }
       }
     } catch (err) {
-      alert('Failed to publish episode');
+      alert(editingEpisode ? 'Failed to update episode' : 'Failed to publish episode');
     }
   };
 
@@ -66,19 +102,19 @@ const AdminEpisodes = () => {
       <AdminSidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
       <div className="flex-1 flex flex-col min-w-0 overflow-y-auto">
-        <AdminHeader title="Episodes &amp; Video Content CMS" onMenuToggle={() => setSidebarOpen(!sidebarOpen)} />
+        <AdminHeader title="Episodes CMS" onMenuToggle={() => setSidebarOpen(!sidebarOpen)} />
 
         <main className="p-4 sm:p-8 space-y-6 max-w-7xl">
           
-          <div className="flex justify-between items-center">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
               <h2 className="text-xl font-bold text-white font-heading uppercase">EPISODE PUBLISHING MANAGEMENT</h2>
               <p className="text-xs text-gray-400">Manage video streaming episodes, YouTube embeds, guest stars, and publish dates.</p>
             </div>
 
             <button 
-              onClick={() => setModalOpen(true)} 
-              className="btn-primary py-2.5 px-4 text-xs flex items-center gap-1.5"
+              onClick={openCreateModal} 
+              className="btn-primary py-2.5 px-4 text-xs flex items-center gap-1.5 w-full sm:w-auto justify-center"
             >
               <Plus className="w-4 h-4" /> PUBLISH NEW EPISODE
             </button>
@@ -107,13 +143,22 @@ const AdminEpisodes = () => {
 
                   <div className="flex items-center justify-between pt-2 border-t border-[#1E2638]">
                     <span className="text-[10px] text-gray-500">{ep.publish_date || 'Sept 2026'}</span>
-                    <button 
-                      onClick={() => handleDeleteEpisode(ep.id)} 
-                      className="p-1.5 rounded bg-red-950 text-red-300 hover:bg-red-900 transition-colors"
-                      title="Delete Episode"
-                    >
-                      <Trash2 className="w-3.5 h-3.5" />
-                    </button>
+                    <div className="flex items-center gap-1.5">
+                      <button 
+                        onClick={() => openEditModal(ep)} 
+                        className="p-1.5 rounded bg-[#161C2A] text-gray-300 hover:text-white hover:bg-[#263148] border border-[#263148] transition-colors"
+                        title="Edit Episode"
+                      >
+                        <Edit3 className="w-3.5 h-3.5 text-[#D6A84F]" />
+                      </button>
+                      <button 
+                        onClick={() => handleDeleteEpisode(ep.id)} 
+                        className="p-1.5 rounded bg-red-950/80 text-red-400 hover:bg-red-900 border border-red-900/50 transition-colors"
+                        title="Delete Episode"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
                   </div>
                 </div>
               ))
@@ -123,16 +168,18 @@ const AdminEpisodes = () => {
         </main>
       </div>
 
-      {/* Add Episode Modal */}
+      {/* Add / Edit Episode Modal */}
       {modalOpen && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
           <div className="bg-[#0F131C] border border-[#1E2638] rounded-2xl max-w-lg w-full p-6 space-y-4 text-xs max-h-[90vh] overflow-y-auto">
             <div className="flex justify-between items-center border-b border-[#1E2638] pb-3">
-              <h3 className="text-lg font-bold font-heading text-white uppercase">CREATE &amp; PUBLISH NEW EPISODE</h3>
-              <button onClick={() => setModalOpen(false)} className="text-gray-400 hover:text-white">✕</button>
+              <h3 className="text-base sm:text-lg font-bold font-heading text-white uppercase">
+                {editingEpisode ? `EDIT EPISODE #${editingEpisode.episode_no}` : 'CREATE & PUBLISH NEW EPISODE'}
+              </h3>
+              <button onClick={() => setModalOpen(false)} className="text-gray-400 hover:text-white text-base font-bold">✕</button>
             </div>
 
-            <form onSubmit={handleCreateEpisode} className="space-y-4">
+            <form onSubmit={handleSubmitEpisode} className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-gray-300 font-bold mb-1">Episode Number *</label>
@@ -229,7 +276,9 @@ const AdminEpisodes = () => {
 
               <div className="flex justify-end gap-3 pt-2">
                 <button type="button" onClick={() => setModalOpen(false)} className="btn-outline py-2 px-4 text-xs">Cancel</button>
-                <button type="submit" className="btn-primary py-2 px-5 text-xs">Publish Episode</button>
+                <button type="submit" className="btn-primary py-2 px-5 text-xs font-bold">
+                  {editingEpisode ? 'SAVE CHANGES' : 'PUBLISH EPISODE'}
+                </button>
               </div>
             </form>
           </div>
