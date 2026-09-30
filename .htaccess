@@ -1,20 +1,15 @@
 <IfModule mod_rewrite.c>
+    DirectoryIndex index.php index.html
+
     RewriteEngine On
+    RewriteBase /
 
-    # 1. Forward API requests to Laravel Backend (backend/public/index.php)
-    RewriteCond %{REQUEST_URI} ^/api [NC]
-    RewriteRule ^api/?(.*)$ backend/public/index.php/$1 [L,QSA]
+    # Pass Authorization Headers
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
-    # 2. Forward storage uploaded files to Laravel Storage
-    RewriteCond %{REQUEST_URI} ^/storage [NC]
-    RewriteRule ^storage/(.*)$ backend/public/storage/$1 [L]
-
-    # 3. Serve Frontend Build static files if they exist
-    RewriteCond %{DOCUMENT_ROOT}/frontend/dist%{REQUEST_URI} -f
-    RewriteRule ^(.*)$ frontend/dist/$1 [L]
-
-    # 4. Route all remaining requests to Frontend Single Page Application (React)
+    # If the requested file or directory does not exist, route to index.php
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^ frontend/dist/index.html [L]
+    RewriteRule ^ index.php [L,QSA]
 </IfModule>
