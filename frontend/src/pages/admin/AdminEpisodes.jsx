@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import AdminSidebar from '../../components/admin/AdminSidebar';
 import AdminHeader from '../../components/admin/AdminHeader';
 import apiClient from '../../api/axios';
-import { Video, Plus, Trash2, Edit3, Clock, User, Play, Sparkles } from 'lucide-react';
+import { getYouTubeThumbnail, fetchYouTubeMetadata } from '../../utils/youtube';
+import { getMediaUrl } from '../../utils/formatUrl';
+import { Video, Plus, Trash2, Edit3, Clock, User, Play, Sparkles, Wand2, Loader2 } from 'lucide-react';
 
 const AdminEpisodes = () => {
   const [episodes, setEpisodes] = useState([]);
@@ -10,6 +12,7 @@ const AdminEpisodes = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [editingEpisode, setEditingEpisode] = useState(null);
+  const [fetchingMeta, setFetchingMeta] = useState(false);
 
   const initialFormState = {
     episode_no: 1,
@@ -18,11 +21,36 @@ const AdminEpisodes = () => {
     guest_name: '',
     duration: '50:00',
     video_url: '',
-    thumbnail_path: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=800',
+    thumbnail_path: '',
     publish_date: new Date().toISOString().split('T')[0]
   };
 
   const [formData, setFormData] = useState(initialFormState);
+
+  const handleVideoUrlChange = async (url, forceFetch = false) => {
+    const extractedThumb = getYouTubeThumbnail(url);
+    
+    setFormData(prev => ({
+      ...prev,
+      video_url: url,
+      thumbnail_path: extractedThumb || prev.thumbnail_path
+    }));
+
+    if (url && (url.includes('youtube.com') || url.includes('youtu.be'))) {
+      setFetchingMeta(true);
+      const meta = await fetchYouTubeMetadata(url);
+      setFetchingMeta(false);
+
+      if (meta && meta.title) {
+        setFormData(prev => ({
+          ...prev,
+          title: forceFetch || !prev.title ? meta.title : prev.title,
+          description: forceFetch || !prev.description ? meta.description : prev.description,
+          thumbnail_path: meta.thumbnail_url || prev.thumbnail_path
+        }));
+      }
+    }
+  };
 
   const fetchEpisodes = async () => {
     setLoading(true);
@@ -240,27 +268,50 @@ const AdminEpisodes = () => {
               </div>
 
               <div>
-                <label className="block text-gray-300 font-bold mb-1">Video Stream URL *</label>
+                <div className="flex justify-between items-center mb-1">
+                  <label className="block text-gray-300 font-bold">YouTube Video URL *</label>
+                  {formData.video_url && (
+                    <button
+                      type="button"
+                      onClick={() => handleVideoUrlChange(formData.video_url, true)}
+                      className="text-[10px] text-[#D6A84F] hover:underline font-semibold flex items-center gap-1"
+                      title="Fetch title, description & cover art from YouTube"
+                    >
+                      {fetchingMeta ? <Loader2 className="w-3 h-3 animate-spin" /> : <Wand2 className="w-3 h-3 text-[#D6A84F]" />}
+                      {fetchingMeta ? 'Fetching details...' : 'Auto-fill Title & Description'}
+                    </button>
+                  )}
+                </div>
                 <input 
                   type="url" 
                   value={formData.video_url} 
-                  onChange={e => setFormData({ ...formData, video_url: e.target.value })}
+                  onChange={e => handleVideoUrlChange(e.target.value)}
                   placeholder="https://www.youtube.com/watch?v=..."
-                  className="w-full bg-[#161C2A] border border-[#263148] rounded-lg p-2.5 text-xs text-white focus:outline-none"
+                  className="w-full bg-[#161C2A] border border-[#263148] rounded-lg p-2.5 text-xs text-white focus:outline-none focus:border-[#D6A84F]"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-gray-300 font-bold mb-1">Thumbnail Image URL</label>
+                <div className="flex justify-between items-center mb-1">
+                  <label className="block text-gray-300 font-bold">Thumbnail Image URL</label>
+                  <span className="text-[10px] text-[#D6A84F] font-semibold">Auto-generated from YouTube URL</span>
+                </div>
                 <input 
                   type="url" 
                   value={formData.thumbnail_path} 
                   onChange={e => setFormData({ ...formData, thumbnail_path: e.target.value })}
-                  placeholder="https://images.unsplash.com/..."
+                  placeholder="Auto-generated YouTube thumbnail or custom image URL"
                   className="w-full bg-[#161C2A] border border-[#263148] rounded-lg p-2.5 text-xs text-white focus:outline-none"
                 />
               </div>
+
+              {formData.thumbnail_path && (
+                <div className="p-2 bg-black/60 rounded-xl border border-white/10 flex items-center gap-3">
+                  <img src={getMediaUrl(formData.thumbnail_path)} alt="Thumbnail Preview" className="w-20 h-12 object-cover rounded-lg border border-white/10" />
+                  <span className="text-[11px] text-gray-400">Episode thumbnail cover preview</span>
+                </div>
+              )}
 
               <div>
                 <label className="block text-gray-300 font-bold mb-1">Description</label>

@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import apiClient from '../api/axios';
+import { getYouTubeEmbedUrl } from '../utils/youtube';
 import { Play, Clock, User, Calendar, Share2, Sparkles } from 'lucide-react';
 
 const EpisodeDetail = () => {
@@ -42,13 +43,13 @@ const EpisodeDetail = () => {
 
       <div className="pt-28 pb-20 max-w-6xl mx-auto px-4">
         
-        {/* Video Player Frame Container */}
+        {/* Standard Native YouTube Video Player Container */}
         <div className="rounded-2xl overflow-hidden bg-black border border-white/10 shadow-2xl mb-8 relative aspect-video">
           <iframe 
             className="w-full h-full"
-            src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0&rel=0" 
+            src={getYouTubeEmbedUrl(episode.video_url)} 
             title={episode.title}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
             allowFullScreen
           />
         </div>

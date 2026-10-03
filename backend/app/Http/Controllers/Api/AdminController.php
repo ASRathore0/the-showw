@@ -388,6 +388,12 @@ class AdminController extends Controller
             'publish_date' => 'nullable|date'
         ]);
 
+        if (empty($validated['thumbnail_path']) || str_contains($validated['thumbnail_path'], 'unsplash')) {
+            if (preg_match('/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/', $validated['video_url'], $matches)) {
+                $validated['thumbnail_path'] = "https://img.youtube.com/vi/{$matches[1]}/hqdefault.jpg";
+            }
+        }
+
         $episode = Episode::create($validated);
         return response()->json(['success' => true, 'message' => 'Episode created successfully', 'episode' => $episode], 201);
     }
@@ -405,6 +411,12 @@ class AdminController extends Controller
             'thumbnail_path' => 'nullable|string|max:255',
             'publish_date' => 'nullable|date'
         ]);
+
+        if (empty($validated['thumbnail_path']) || str_contains($validated['thumbnail_path'], 'unsplash')) {
+            if (preg_match('/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/', $validated['video_url'], $matches)) {
+                $validated['thumbnail_path'] = "https://img.youtube.com/vi/{$matches[1]}/hqdefault.jpg";
+            }
+        }
 
         $episode->update($validated);
         return response()->json(['success' => true, 'message' => 'Episode updated successfully', 'episode' => $episode]);

@@ -1,17 +1,29 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Play, Clock, User, Calendar } from 'lucide-react';
+import { getYouTubeThumbnail } from '../utils/youtube';
+import { getMediaUrl } from '../utils/formatUrl';
 
 const EpisodeCard = ({ episode }) => {
+  const thumbUrl = episode.thumbnail_path && !episode.thumbnail_path.includes('unsplash')
+    ? episode.thumbnail_path
+    : getYouTubeThumbnail(episode.video_url, episode.thumbnail_path);
+
   return (
     <div className="cinematic-card rounded-xl overflow-hidden group flex flex-col h-full">
       {/* Episode Thumbnail with Play Overlay */}
       <div className="relative aspect-video bg-zinc-900 overflow-hidden">
-        <img 
-          src={episode.thumbnail_path || 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=800'} 
-          alt={episode.title}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 filter brightness-90 group-hover:brightness-100" 
-        />
+        <Link to={`/episodes/${episode.id}`} className="block w-full h-full">
+          <img 
+            src={getMediaUrl(thumbUrl, 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=800')} 
+            alt={episode.title}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 filter brightness-90 group-hover:brightness-100" 
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = getYouTubeThumbnail(episode.video_url) || 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=800';
+            }}
+          />
+        </Link>
         <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors flex items-center justify-center">
           <div className="w-12 h-12 rounded-full bg-[#B51D2A] text-white flex items-center justify-center shadow-xl transform transition-transform group-hover:scale-110">
             <Play className="w-6 h-6 fill-current ml-1" />
